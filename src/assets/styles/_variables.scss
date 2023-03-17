@@ -1,0 +1,27 @@
+$white: #FFFFFF;
+$black: #000112;
+$grey: #828FA3;
+$grey-light: #F4F7FD;
+$grey-dark: #2B2C37;
+$grey-very-dark: #20212C;
+$purple: #635FC7;
+$purple-light: #A8A4FF;
+$red: #EA5555;
+$red-light: #FF9898;
+
+$border-light: #828FA3;
+$border-dark: #3E3F4E;
+
+:root,
+:root[theme="light"] {
+  --body-bg-color: #{$grey-light};
+  --body-text-color: #{$black}
+}
+
+:root[theme="dark"] {
+  --body-bg-color: #{$grey-very-dark};
+  --body-text-color: #{$white}
+}
+
+$body-bg-color: var(--body-bg-color);
+$body-text-color: var(--body-text-color);

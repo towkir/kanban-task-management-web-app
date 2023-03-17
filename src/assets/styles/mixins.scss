@@ -1,0 +1,29 @@
+@use "sass:math";
+
+@function pixelToRem($size) {
+  $proportion: math.div($size, 14px);
+  @return $proportion * 1rem;
+}
+
+@mixin font($font-size, $line-height, $font-weight) {
+  font-size: pixelToRem($font-size);
+  line-height: pixelToRem($line-height);
+  font-weight: $font-weight;
+}
+
+@mixin heading-xl {
+  @include font(24px, 30px, 700);
+}
+
+@mixin heading-l {
+  @include font(18px, 23px, 700);
+}
+
+@mixin heading-m {
+  @include font(15px, 19px, 700);
+}
+
+@mixin heading-s {
+  @include font(12px, 15px, 700);
+  letter-spacing: 2.4px;
+}
