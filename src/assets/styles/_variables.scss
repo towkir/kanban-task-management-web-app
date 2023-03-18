@@ -9,19 +9,26 @@ $purple-light: #A8A4FF;
 $red: #EA5555;
 $red-light: #FF9898;
 
-$border-light: #828FA3;
+$border-light: #E4EBFA;
 $border-dark: #3E3F4E;
 
 :root,
 :root[theme="light"] {
   --body-bg-color: #{$grey-light};
-  --body-text-color: #{$black}
+  --body-text-color: #{$black};
+  --header-bg-color: #{$white};
+  --border-color: #{$border-light};
 }
 
 :root[theme="dark"] {
   --body-bg-color: #{$grey-very-dark};
-  --body-text-color: #{$white}
+  --body-text-color: #{$white};
+  --header-bg-color: #{$grey-dark};
+  --border-color: #{$border-dark};
 }
 
 $body-bg-color: var(--body-bg-color);
 $body-text-color: var(--body-text-color);
+$header-bg-color: var(--header-bg-color);
+$border-color: var(--border-color);
+

@@ -27,3 +27,15 @@
   @include font(12px, 15px, 700);
   letter-spacing: 2.4px;
 }
+
+@mixin body-l {
+  @include font(13px, 23px, 500);
+}
+
+@mixin body-m {
+  @include font(12px, 15px, 700);
+}
+
+@mixin button {
+  @include font(13px, 23px, 700);
+}
