@@ -1,7 +1,9 @@
 @use "sass:math";
 
+$body-font-size: 14px;
+
 @function pixelToRem($size) {
-  $proportion: math.div($size, 14px);
+  $proportion: math.div($size, $body-font-size);
   @return $proportion * 1rem;
 }
 
