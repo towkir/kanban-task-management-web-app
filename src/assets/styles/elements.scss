@@ -48,8 +48,9 @@ body {
       padding: 14px 42px;
       border-radius: 24px;
     }
-    svg {
-      vertical-align: sub;
+    &.btn-block {
+      display: block;
+      width: 100%;
     }
   }
 }
