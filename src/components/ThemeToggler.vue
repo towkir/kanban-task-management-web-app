@@ -35,6 +35,8 @@ export default {
     },
     retrieveTheme() {
       this.darkThemeEnabled = this.$store.state.theme === 'dark';
+      document.documentElement.setAttribute('theme',
+        this.darkThemeEnabled ? 'dark' : 'light');
     },
   },
   mounted() {
