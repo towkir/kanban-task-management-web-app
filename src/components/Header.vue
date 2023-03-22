@@ -5,7 +5,7 @@
       <div class="spacer"></div>
     </div>
     <div class="content">
-      <h1>Platform Launch</h1>
+      <h1>{{ currentBoard.name }}</h1>
       <div class="action">
         <button class="btn btn-primary btn-lg">
           + Add New Task

@@ -3,5 +3,8 @@ export default {
     sideBarOpen() {
       return this.$store.state.sideBarOpen;
     },
+    currentBoard() {
+      return this.$store.state.currentBoard;
+    },
   },
 };
