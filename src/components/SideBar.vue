@@ -5,7 +5,7 @@
         <img src="@/assets/logo-dark.svg" alt="logo">
       </div>
       <div class="board-list">
-        <label>ALL BOARDS ({{boards.length}})</label>
+        <label>ALL BOARDS ({{ boards.length }})</label>
         <button
           class="btn btn-lg btn-block"
           :class="{ active : board.id === currentBoard.id }"
@@ -17,6 +17,7 @@
         </button>
         <button class="btn btn-lg btn-block cta"><board-icon/>+ Create New Board</button>
       </div>
+      <theme-toggler/>
       <button class="btn btn-lg btn-block" @click="toggleSideBar">
         <hide-icon/>Hide Sidebar
       </button>
@@ -31,18 +32,24 @@
 import BoardIcon from '@/components/vectors/BoardIcon.vue';
 import HideIcon from '@/components/vectors/HideIcon.vue';
 import ShowIcon from '@/components/vectors/ShowIcon.vue';
+import ThemeToggler from '@/components/ThemeToggler.vue';
 
 export default {
   name: 'SideBar',
-  components: { BoardIcon, HideIcon, ShowIcon },
+  components: {
+    BoardIcon,
+    HideIcon,
+    ShowIcon,
+    ThemeToggler,
+  },
   methods: {
     toggleSideBar() {
       this.$store.commit('toggleSidebar', !this.sideBarOpen);
     },
     selectBoard(boardId) {
-      const board = this.$store.state.boards.find(item => item.id === boardId);
+      const board = this.$store.state.boards.find((item) => item.id === boardId);
       this.$store.commit('selectBoard', board);
-    }
+    },
   },
   computed: {
     boards() {
@@ -76,7 +83,7 @@ export default {
     }
 
     div.board-list {
-      height: calc(100% - 180px);
+      height: calc(100% - 240px);
       label {
         display: block;
         padding: 18px 24px;
@@ -122,6 +129,10 @@ export default {
           }
         }
       }
+    }
+    .theme-toggler {
+      margin-left: 24px;
+      margin-bottom: 10px;
     }
   }
 

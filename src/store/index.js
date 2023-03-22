@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     sideBarOpen: true,
+    theme: 'light',
     currentBoard: {
       id: 'board-1',
       name: 'Platform Launch',
@@ -592,6 +593,9 @@ export default new Vuex.Store({
   mutations: {
     toggleSidebar(state, data) {
       state.sideBarOpen = data;
+    },
+    toggleTheme(state) {
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
     },
     selectBoard(state, data) {
       state.currentBoard = data;
