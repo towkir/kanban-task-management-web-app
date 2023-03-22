@@ -34,6 +34,7 @@ export default {
   align-items: stretch;
   background-color: $header-bg-color;
   border-bottom: 1px solid $border-color;
+  transition: 0.3s ease-in-out;
   .logo {
     width: 200px;
     padding: 20px;
