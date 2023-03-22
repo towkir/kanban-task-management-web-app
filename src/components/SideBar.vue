@@ -37,6 +37,7 @@ export default {
   methods: {
     toggleSideBar() {
       this.sideBarOpen = !this.sideBarOpen;
+      this.$store.commit('toggleSidebar', this.sideBarOpen);
     },
   },
 };

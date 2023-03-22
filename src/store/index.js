@@ -8,6 +8,9 @@ export default new Vuex.Store({
     sideBarOpen: false,
   },
   mutations: {
+    toggleSidebar(state, data) {
+      state.sideBarOpen = data;
+    },
   },
   actions: {
   },
