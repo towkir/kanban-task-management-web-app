@@ -1,5 +1,5 @@
 <template>
-  <div class="home" :class="{ 'sidebar-open' : sidebarOpen }">
+  <div class="home" :class="{ 'sidebar-open' : sideBarOpen }">
     <Header/>
     <side-bar/>
   </div>

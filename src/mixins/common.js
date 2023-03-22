@@ -1,6 +1,6 @@
 export default {
   computed: {
-    sidebarOpen() {
+    sideBarOpen() {
       return this.$store.state.sideBarOpen;
     },
   },

@@ -29,15 +29,9 @@ import ShowIcon from '@/components/vectors/ShowIcon.vue';
 export default {
   name: 'SideBar',
   components: { BoardIcon, HideIcon, ShowIcon },
-  data() {
-    return {
-      sideBarOpen: false,
-    };
-  },
   methods: {
     toggleSideBar() {
-      this.sideBarOpen = !this.sideBarOpen;
-      this.$store.commit('toggleSidebar', this.sideBarOpen);
+      this.$store.commit('toggleSidebar', !this.sideBarOpen);
     },
   },
 };
