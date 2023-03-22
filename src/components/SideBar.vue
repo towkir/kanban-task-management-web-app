@@ -5,10 +5,16 @@
         <img src="@/assets/logo-dark.svg" alt="logo">
       </div>
       <div class="board-list">
-        <label>ALL BOARDS (3)</label>
-        <button class="btn btn-lg btn-block active"><board-icon/>Platform Launch</button>
-        <button class="btn btn-lg btn-block"><board-icon/>Marketing Plan</button>
-        <button class="btn btn-lg btn-block"><board-icon/>Roadmap</button>
+        <label>ALL BOARDS ({{boards.length}})</label>
+        <button
+          class="btn btn-lg btn-block"
+          :class="{ active : board.id === currentBoard.id }"
+          v-for="board in boards"
+          :key="`menu-${board.id}`"
+          @click="selectBoard(board.id)"
+        >
+          <board-icon/>{{ board.name }}
+        </button>
         <button class="btn btn-lg btn-block cta"><board-icon/>+ Create New Board</button>
       </div>
       <button class="btn btn-lg btn-block" @click="toggleSideBar">
@@ -32,6 +38,15 @@ export default {
   methods: {
     toggleSideBar() {
       this.$store.commit('toggleSidebar', !this.sideBarOpen);
+    },
+    selectBoard(boardId) {
+      const board = this.$store.state.boards.find(item => item.id === boardId);
+      this.$store.commit('selectBoard', board);
+    }
+  },
+  computed: {
+    boards() {
+      return this.$store.state.boards;
     },
   },
 };
