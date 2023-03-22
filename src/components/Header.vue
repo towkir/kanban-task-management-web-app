@@ -31,22 +31,27 @@ export default {
 <style scoped lang="scss">
 .header {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background-color: $header-bg-color;
   border-bottom: 1px solid $border-color;
   .logo {
+    width: 200px;
     padding: 20px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid $border-color;
+    box-sizing: border-box;
+    transition: width 0.3s ease-in-out;
   }
   .content {
-    border-left: 1px solid $border-color;
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-grow: 1;
-  }
-  h1 {
-    @include heading-xl;
+    h1 {
+      @include heading-xl;
+    }
   }
 }
 </style>

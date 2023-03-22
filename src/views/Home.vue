@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" :class="{ 'sidebar-open' : sidebarOpen }">
     <Header/>
     <side-bar/>
   </div>
@@ -18,3 +18,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.home {
+  &.sidebar-open {
+    .logo {
+      width: 300px;
+    }
+  }
+}
+</style>
