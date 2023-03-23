@@ -28,13 +28,15 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .header {
   display: flex;
   align-items: stretch;
   background-color: $header-bg-color;
   border-bottom: 1px solid $border-color;
-  transition: 0.3s ease-in-out;
+  transition-property: background, border, color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
   .logo {
     width: 200px;
     padding: 20px;
@@ -42,7 +44,9 @@ export default {
     align-items: center;
     border-right: 1px solid $border-color;
     box-sizing: border-box;
-    transition: width 0.3s ease-in-out;
+    transition-property: width, border;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
   }
   .content {
     padding: 20px;

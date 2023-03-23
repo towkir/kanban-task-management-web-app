@@ -59,7 +59,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .sidebar-container {
   .sidebar {
     background-color: $header-bg-color;
@@ -71,7 +71,9 @@ export default {
     left: -300px;
     top: 0;
     z-index: 10;
-    transition: 0.3s ease-in-out;
+    transition-property: background, left, border;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
     box-sizing: border-box;
     &.open {
       left: 0;

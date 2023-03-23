@@ -11,7 +11,9 @@ body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: 0.3s ease-in-out;
+  transition-property: background, color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
   .btn {
     appearance: none;
     border: 0;
@@ -22,7 +24,9 @@ body {
     @include button;
     border-radius: 20px;
     cursor: pointer;
-    transition: 0.3s ease-in-out;
+    transition-property: background, color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
     &:disabled {
       opacity: 0.25;
     }

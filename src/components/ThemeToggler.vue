@@ -53,7 +53,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
 
   label[for="theme-switch"] {
     line-height: 0;
@@ -68,7 +68,6 @@ export default {
         background-color: $purple;
         margin: 0 24px;
         cursor: pointer;
-        transition: 0.3s ease-in-out;
         span.toggler-button {
           position: absolute;
           width: 14px;
@@ -77,7 +76,7 @@ export default {
           left: 3px;
           top: 3px;
           background-color: $white;
-          transition: 0.3s ease-in-out;
+          transition: left 0.3s ease-in-out;
         }
       }
       &:checked {
