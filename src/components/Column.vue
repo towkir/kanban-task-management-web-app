@@ -1,6 +1,12 @@
 <template>
   <div class="column">
-    <h4>{{ column.name }}</h4>
+    <div class="title">
+      <h4>
+        <span class="color" :style="`background-color: ${column.color};`"></span>
+        {{ column.name }} ({{tasks.length}})
+      </h4>
+    </div>
+    <div class="task-list"></div>
   </div>
 </template>
 
@@ -10,6 +16,11 @@ export default {
   props: {
     column: {
       type: Object,
+    },
+  },
+  computed: {
+    tasks() {
+      return this.$store.state.tasks.filter((item) => item.columnId === this.column.id);
     },
   },
 };
@@ -22,10 +33,21 @@ export default {
   margin-right: 24px;
   width: 280px;
   height: 100%;
-  h4 {
-    @include heading-s;
-    color: $grey;
-    text-transform: uppercase;
+  .title {
+    h4 {
+      @include heading-s;
+      color: $grey;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      .color {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        margin-right: 12px;
+      }
+    }
   }
 }
 </style>
