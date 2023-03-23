@@ -34,7 +34,7 @@ export default {
   align-items: stretch;
   background-color: $header-bg-color;
   border-bottom: 1px solid $border-color;
-  transition-property: background, border, color;
+  transition-property: background, border;
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
   .logo {
@@ -49,6 +49,8 @@ export default {
     transition-timing-function: ease-in-out;
   }
   .content {
+    color: $body-text-color;
+    transition: color 0.3s ease-in-out;
     padding: 20px;
     display: flex;
     align-items: center;
