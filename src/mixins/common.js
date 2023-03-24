@@ -36,4 +36,9 @@ export default {
       return this.$store.state.currentBoard;
     },
   },
+  methods: {
+    singularOrPlural(number, singularText, pluralText) {
+      return number === 1 ? singularText : pluralText;
+    },
+  },
 };
