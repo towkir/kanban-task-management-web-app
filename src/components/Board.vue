@@ -31,12 +31,13 @@ export default {
 .board {
   box-sizing: border-box;
   height: calc(100vh - 92px);
-  padding: 24px;
+  padding: 24px 12px;
   background-color: $body-bg-color;
   transition-property: background-color, margin, color;
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
   overflow-x: auto;
+  scrollbar-width: none;
   &.sidebar-open {
     margin-left: 300px;
   }
