@@ -6,13 +6,22 @@
         {{ column.name }} ({{tasks.length}})
       </h4>
     </div>
-    <div class="task-list"></div>
+    <div class="task-list">
+      <task
+        v-for="task in tasks"
+        :key="`task-${task.id}`"
+        :task="task"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import Task from '@/components/Task.vue';
+
 export default {
   name: 'Column',
+  components: { Task },
   props: {
     column: {
       type: Object,
@@ -29,11 +38,11 @@ export default {
 <style lang="scss" scoped>
 .column {
   display: inline-block;
-  overflow-y: auto;
-  margin-right: 24px;
   width: 280px;
   height: 100%;
   .title {
+    margin-bottom: 12px;
+    padding: 0 12px;
     h4 {
       @include heading-s;
       color: $grey;
@@ -48,6 +57,13 @@ export default {
         margin-right: 12px;
       }
     }
+  }
+  .task-list {
+    padding: 0 12px;
+    height: calc(100% - 30px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    scrollbar-width: none;
   }
 }
 </style>
