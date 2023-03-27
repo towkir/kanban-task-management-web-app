@@ -2,7 +2,7 @@
   <div class="sidebar-container">
     <div class="sidebar" :class="{ open : sideBarOpen}">
       <div class="logo">
-        <img src="@/assets/logo-dark.svg" alt="logo">
+        <logo />
       </div>
       <div class="board-list">
         <label>ALL BOARDS ({{ boards.length }})</label>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import Logo from '@/components/vectors/Logo.vue';
 import BoardIcon from '@/components/vectors/BoardIcon.vue';
 import HideIcon from '@/components/vectors/HideIcon.vue';
 import ShowIcon from '@/components/vectors/ShowIcon.vue';
@@ -37,6 +38,7 @@ import ThemeToggler from '@/components/ThemeToggler.vue';
 export default {
   name: 'SideBar',
   components: {
+    Logo,
     BoardIcon,
     HideIcon,
     ShowIcon,

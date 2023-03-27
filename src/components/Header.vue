@@ -1,8 +1,7 @@
 <template>
   <div class="header">
     <div class="logo">
-      <img src="@/assets/logo-dark.svg" alt="logo">
-      <div class="spacer"></div>
+      <logo />
     </div>
     <div class="content">
       <h1>{{ currentBoard.name }}</h1>
@@ -19,11 +18,12 @@
 </template>
 
 <script>
+import Logo from '@/components/vectors/Logo.vue';
 import DotsIcon from '@/components/vectors/DotsIcon.vue';
 
 export default {
   name: 'Header',
-  components: { DotsIcon },
+  components: { Logo, DotsIcon },
 };
 </script>
 
