@@ -6,6 +6,11 @@
         :key="column.id"
         :column="column"
       />
+      <div class="column add">
+        <button class="btn btn-block">
+          + New Column
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -44,6 +49,23 @@ export default {
   .columns {
     height: 100%;
     width: max-content;
+    .column.add {
+      display: inline-block;
+      padding: 30px 12px 0 12px;
+      box-sizing: border-box;
+      width: 280px;
+      vertical-align: top;
+      height: 100%;
+      .btn {
+        height: 100%;
+        padding: 0;
+        border-radius: 6px;
+        background: $new-column-btn-bg;
+        color: $grey;
+        @include heading-xl;
+        transition: background 0.3s ease-in-out;
+      }
+    }
   }
 }
 </style>
