@@ -41,7 +41,7 @@ export default {
   width: 280px;
   height: 100%;
   .title {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     padding: 0 12px;
     h4 {
       @include heading-s;
