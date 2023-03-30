@@ -46,7 +46,7 @@ html {
 
       &.btn-secondary {
         background-color: transparentize($purple, 0.9);
-
+        color: $purple;
         &:hover {
           background-color: transparentize($purple, 0.75);
         }

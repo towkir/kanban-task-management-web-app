@@ -1,0 +1,125 @@
+<template>
+  <div
+    class="modal-backdrop"
+    :class="[visible ? 'visible' : 'hidden', { 'fade-in' : showing, 'fade-out' : hiding }]"
+  >
+    <div
+      class="modal"
+      role="dialog"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+    >
+      <div id="modal-title" class="modal-header">
+        <slot name="header">
+          Modal Header
+        </slot>
+      </div>
+      <div id="modal-description" class="modal-body">
+        <slot name="body">
+          Modal Body
+        </slot>
+      </div>
+      <div class="modal-footer">
+        <slot name="footer">
+          <div class="buttons">
+            <button class="btn btn-primary" @click="onOkay">Okay</button>
+            <button class="btn btn-secondary" @click="onClose">Cancel</button>
+          </div>
+        </slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Modal',
+  props: {
+    variant: {
+      type: String,
+      default: 'primary',
+    },
+  },
+  data() {
+    return {
+      visible: false,
+      hiding: true,
+      showing: false,
+    };
+  },
+  methods: {
+    show() {
+      this.visible = true;
+      setTimeout(() => {
+        this.showing = true;
+        this.hiding = false;
+      }, 0);
+    },
+    onOkay() {
+      this.$emit('ok');
+    },
+    hide() {
+      this.hiding = true;
+      this.showing = false;
+      setTimeout(() => {
+        this.visible = false;
+      }, 300);
+    },
+    onClose() {
+      this.$emit('close');
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  background-color: transparentize($black, 0.5);
+  transition: opacity 0.3s ease-in-out;
+  &.hidden {
+    display: none;
+  }
+  &.visible {
+    display: block;
+  }
+  &.fade-out {
+    opacity: 0;
+  }
+  &.fade-in {
+    opacity: 1;
+  }
+  .modal {
+    background-color: $header-bg-color;
+    width: 480px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    padding: 30px;
+    border-radius: 6px;
+    .modal-header {
+      @include heading-l;
+      margin-bottom: 24px;
+      color: $body-text-color;
+    }
+    .modal-body {
+      margin-bottom: 24px;
+    }
+    .modal-footer {
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        .btn {
+          width: calc(50% - 10px);
+        }
+      }
+    }
+  }
+}
+</style>
