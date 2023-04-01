@@ -2,6 +2,7 @@
   <div
     class="modal-backdrop"
     :class="[visible ? 'visible' : 'hidden', { 'fade-in' : showing, 'fade-out' : hiding }]"
+    @click="handleCloseOnBackdrop"
   >
     <div
       class="modal"
@@ -11,7 +12,7 @@
     >
       <div id="modal-title" class="modal-header">
         <slot name="header">
-          Modal Header
+          {{ title }}
         </slot>
       </div>
       <div id="modal-description" class="modal-body">
@@ -23,7 +24,7 @@
         <slot name="footer">
           <div class="buttons">
             <button class="btn btn-primary" @click="onOkay">Okay</button>
-            <button class="btn btn-secondary" @click="onClose">Cancel</button>
+            <button class="btn btn-secondary" @click="hide">Cancel</button>
           </div>
         </slot>
       </div>
@@ -35,9 +36,25 @@
 export default {
   name: 'Modal',
   props: {
+    id: {
+      type: String,
+      required: true,
+    },
     variant: {
       type: String,
       default: 'primary',
+    },
+    title: {
+      type: String,
+      default: 'Modal Title',
+    },
+    closeOnEsc: {
+      type: Boolean,
+      default: true,
+    },
+    closeOnBackdrop: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -54,9 +71,7 @@ export default {
         this.showing = true;
         this.hiding = false;
       }, 0);
-    },
-    onOkay() {
-      this.$emit('ok');
+      this.addEventListenerForCloseOnEsc();
     },
     hide() {
       this.hiding = true;
@@ -64,10 +79,45 @@ export default {
       setTimeout(() => {
         this.visible = false;
       }, 300);
-    },
-    onClose() {
+      this.removeEventListenerForCloseOnEsc();
       this.$emit('close');
     },
+    onOkay() {
+      this.$emit('ok');
+    },
+    escHandler(e) {
+      if (e.keyCode === 27) {
+        this.hide();
+      }
+    },
+    handleCloseOnBackdrop(event) {
+      if (event.target && event.target.classList.contains('modal-backdrop')
+        && this.closeOnBackdrop) {
+        this.hide();
+      }
+    },
+    addEventListenerForCloseOnEsc() {
+      if (this.closeOnEsc) {
+        document.addEventListener('keydown', this.escHandler);
+      }
+    },
+    removeEventListenerForCloseOnEsc() {
+      if (this.closeOnEsc) {
+        document.removeEventListener('keydown', this.escHandler);
+      }
+    },
+  },
+  created() {
+    this.$root.$on('modal::show', (id) => {
+      if (id === this.id) {
+        this.show();
+      }
+    });
+    this.$root.$on('modal::hide', (id) => {
+      if (id === this.id) {
+        this.hide();
+      }
+    });
   },
 };
 </script>
