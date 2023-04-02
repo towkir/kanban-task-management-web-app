@@ -1,20 +1,22 @@
 <template>
   <div class="k-select">
-    <div class="value" :class="{ empty : value === '', active : visible }" @click="show">
-      {{ value || placeholder }}
-    </div>
+    <div
+      class="value"
+      :class="{ empty : value === '', active : visible }"
+      @click="show"
+      v-html="selectedOptionText"
+    />
     <div
       class="options"
       :class="[visible ? 'visible' : 'hidden', { 'fade-in' : showing, 'fade-out' : hiding }]"
     >
       <span
         class="option"
-        v-for="option in options"
-        :key="option"
+        v-for="(option, index) in options"
+        :key="option + index"
         @click="select(option)"
-      >
-        {{option}}
-      </span>
+        v-html="labelText(option)"
+      />
       <span v-if="!options.length" class="option">
         No Matching Options
       </span>
@@ -26,6 +28,10 @@
 export default {
   name: 'KSelect',
   props: {
+    id: {
+      type: String,
+      required: true,
+    },
     value: {
       type: String,
     },
@@ -37,9 +43,17 @@ export default {
       type: Array,
       default: () => [],
     },
-    id: {
+    append: {
+      type: [Function, undefined],
+      default: undefined, // (label) => label
+    },
+    labelKey: {
       type: String,
-      required: true,
+      default: '',
+    },
+    valueKey: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -48,6 +62,18 @@ export default {
       hiding: true,
       showing: false,
     };
+  },
+  computed: {
+    selectedOptionText() {
+      if (!this.value) {
+        return this.placeholder;
+      }
+      if (this.valueKey) {
+        const selectedItem = this.options.find((item) => item[this.valueKey] === this.value);
+        return selectedItem ? this.labelText(selectedItem) : this.placeholder;
+      }
+      return this.value;
+    },
   },
   methods: {
     show() {
@@ -68,8 +94,12 @@ export default {
       // this.$emit('close');
     },
     select(val) {
-      this.$emit('change', val);
+      this.$emit('change', this.valueKey ? val[this.valueKey] : val);
       this.hide();
+    },
+    labelText(option) {
+      const optionText = this.labelKey ? option[this.labelKey] : option;
+      return this.append ? `${this.append(option)} ${optionText}` : optionText;
     },
     handleBlur(event) {
       if (!(event && event.target && event.target.closest('.k-select'))) {
