@@ -5,6 +5,9 @@
         <span class="color" :style="`background-color: ${column.color};`"></span>
         {{ column.name }} ({{tasks.length}})
       </h4>
+      <button class="btn edit-column">
+        <DotsHrIcon />
+      </button>
     </div>
     <div class="task-list">
       <task
@@ -17,11 +20,12 @@
 </template>
 
 <script>
+import DotsHrIcon from '@/components/vectors/DotsHrIcon.vue';
 import Task from '@/components/Task.vue';
 
 export default {
   name: 'Column',
-  components: { Task },
+  components: { DotsHrIcon, Task },
   props: {
     column: {
       type: Object,
@@ -43,6 +47,12 @@ export default {
   .title {
     margin-bottom: 15px;
     padding: 0 12px;
+    position: relative;
+    &:hover, &.open {
+      .btn.edit-column {
+        opacity: 1;
+      }
+    }
     h4 {
       @include heading-s;
       color: $grey;
@@ -55,6 +65,18 @@ export default {
         height: 15px;
         border-radius: 15px;
         margin-right: 12px;
+      }
+    }
+    .btn.edit-column {
+      position: absolute;
+      top: 0;
+      right: 12px;
+      padding: 0 12px;
+      line-height: 1.2;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      svg {
+        margin-bottom: 2px;
       }
     }
   }
