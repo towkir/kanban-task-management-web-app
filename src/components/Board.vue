@@ -5,22 +5,39 @@
         v-for="column in columns"
         :key="column.id"
         :column="column"
+        @edit="showModal"
       />
       <div class="column add">
-        <button class="btn btn-block">
+        <button class="btn btn-block" @click="showModal(undefined)">
           + New Column
         </button>
       </div>
     </div>
+    <add-or-edit-column
+      :board-id="boardId"
+      :column-to-edit="columnToEdit"
+    />
   </div>
 </template>
 
 <script>
-import column from '@/components/Column.vue';
+import Column from '@/components/columns/Column.vue';
+import AddOrEditColumn from '@/components/columns/AddOrEditColumn.vue';
 
 export default {
   name: 'Board',
-  components: { column },
+  components: { Column, AddOrEditColumn },
+  data() {
+    return {
+      columnToEdit: undefined,
+    };
+  },
+  methods: {
+    showModal(columnData) {
+      this.columnToEdit = columnData;
+      this.$root.$emit('modal::show', 'add-or-edit-column');
+    },
+  },
   computed: {
     boardId() {
       return this.currentBoard.id;
