@@ -151,6 +151,7 @@ export default {
     overflow-x: auto;
     box-shadow: 0 4px 6px rgba(54, 78, 126, 0.101545);
     transition: opacity 0.3s ease-in-out;
+    z-index: 5;
     &.hidden {
       display: none;
     }
