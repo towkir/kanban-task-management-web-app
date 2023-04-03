@@ -72,15 +72,16 @@ export default {
         this.hiding = false;
       }, 0);
       this.addEventListenerForCloseOnEsc();
+      this.$emit('open');
     },
     hide() {
       this.hiding = true;
       this.showing = false;
       setTimeout(() => {
         this.visible = false;
+        this.$emit('close');
       }, 300);
       this.removeEventListenerForCloseOnEsc();
-      this.$emit('close');
     },
     onOkay() {
       this.$emit('ok');
