@@ -10,7 +10,7 @@
           + Add New Task
         </button>
         <button class="btn btn-minimal">
-          <dots-icon/>
+          <dots-vr-icon/>
         </button>
       </div>
     </div>
@@ -19,11 +19,11 @@
 
 <script>
 import Logo from '@/components/vectors/Logo.vue';
-import DotsIcon from '@/components/vectors/DotsIcon.vue';
+import DotsVrIcon from '@/components/vectors/DotsVrIcon.vue';
 
 export default {
   name: 'Header',
-  components: { Logo, DotsIcon },
+  components: { Logo, DotsVrIcon },
 };
 </script>
 
