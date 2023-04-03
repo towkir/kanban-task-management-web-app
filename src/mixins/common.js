@@ -100,5 +100,11 @@ export default {
     singularOrPlural(number, singularText, pluralText) {
       return number === 1 ? singularText : pluralText;
     },
+    findNextValidId(arrayOfStringId, prefix) {
+      const arrayOfNumbers = arrayOfStringId.map((item) => Number(item.split('-')[1]));
+      arrayOfNumbers.sort((a, b) => a - b);
+      const nextIdNumber = arrayOfNumbers[arrayOfNumbers.length - 1] + 1;
+      return `${prefix}-${nextIdNumber}`;
+    },
   },
 };
