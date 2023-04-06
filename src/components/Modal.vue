@@ -86,7 +86,7 @@ export default {
     onOkay() {
       this.$emit('ok');
     },
-    escHandler(e) {
+    handleEsc(e) {
       if (e.keyCode === 27) {
         this.hide();
       }
@@ -99,12 +99,12 @@ export default {
     },
     addEventListenerForCloseOnEsc() {
       if (this.closeOnEsc) {
-        document.addEventListener('keydown', this.escHandler);
+        document.addEventListener('keydown', this.handleEsc);
       }
     },
     removeEventListenerForCloseOnEsc() {
       if (this.closeOnEsc) {
-        document.removeEventListener('keydown', this.escHandler);
+        document.removeEventListener('keydown', this.handleEsc);
       }
     },
   },
