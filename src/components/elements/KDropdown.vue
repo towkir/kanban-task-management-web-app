@@ -51,12 +51,14 @@ export default {
         this.hiding = false;
       }, 0);
       this.addEventListenerForClose();
+      this.$emit('open');
     },
     hide() {
       this.hiding = true;
       this.showing = false;
       setTimeout(() => {
         this.visible = false;
+        this.$emit('close');
       }, 300);
       this.removeEventListenerForClose();
     },
