@@ -2,7 +2,6 @@
   <modal
     id="add-or-edit-column"
     :title="modalTitle"
-    @open="prepareForm"
   >
     <template #body>
       <div class="form-input">
@@ -109,6 +108,14 @@ export default {
         color: '',
         tasks: [],
       };
+    },
+  },
+  watch: {
+    columnToEdit: {
+      deep: true,
+      handler(val) {
+        this.prepareForm(val);
+      },
     },
   },
 };
