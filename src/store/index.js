@@ -625,9 +625,9 @@ export default new Vuex.Store({
     addOrUpdateColumn(state, data) {
       const columnIndex = state.columns.findIndex((item) => item.id === data.id);
       if (columnIndex < 0) {
-        state.columns.splice(columnIndex, 1, data);
-      } else {
         state.columns.push(data);
+      } else {
+        state.columns.splice(columnIndex, 1, data);
       }
     },
   },
