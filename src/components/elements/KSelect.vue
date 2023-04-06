@@ -91,7 +91,6 @@ export default {
         this.visible = false;
       }, 300);
       this.removeEventListenerForCloseOnBlur();
-      // this.$emit('close');
     },
     select(val) {
       this.$emit('change', this.valueKey ? val[this.valueKey] : val);
