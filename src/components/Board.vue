@@ -8,7 +8,7 @@
         @edit="showModal"
       />
       <div class="column add">
-        <button class="btn btn-block" @click="showModal(undefined)">
+        <button class="btn btn-block" @click="showModal({})">
           + New Column
         </button>
       </div>
@@ -29,7 +29,7 @@ export default {
   components: { Column, AddOrEditColumn },
   data() {
     return {
-      columnToEdit: undefined,
+      columnToEdit: {},
     };
   },
   methods: {

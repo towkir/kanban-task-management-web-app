@@ -56,8 +56,8 @@ export default {
       required: true,
     },
     columnToEdit: {
-      type: [Object, undefined],
-      default: undefined,
+      type: Object,
+      default: () => {},
     },
   },
   data() {
@@ -73,10 +73,10 @@ export default {
   },
   computed: {
     modalTitle() {
-      return `${!this.columnToEdit ? 'Add New' : 'Update'} Column`;
+      return `${this.columnToEdit.id ? 'Update' : 'Add New'} Column`;
     },
     modalButtonText() {
-      return !this.columnToEdit ? 'Add Column' : 'Save Changes';
+      return this.columnToEdit.id ? 'Save Changes' : 'Add Column';
     },
     isFormValid() {
       return this.column.name !== '' && this.column.color !== '';
@@ -94,9 +94,9 @@ export default {
       this.$store.commit('addOrUpdateColumn', this.column);
       this.$root.$emit('modal::hide', 'add-or-edit-column');
     },
-    prepareForm() {
-      if (this.columnToEdit) {
-        this.column = { ...this.columnToEdit };
+    prepareForm(columData) {
+      if (columData.id) {
+        this.column = { ...columData };
       } else {
         this.resetForm();
       }
