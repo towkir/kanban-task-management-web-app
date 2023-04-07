@@ -6,6 +6,7 @@
   >
     <div
       class="modal"
+      :class="variant"
       role="dialog"
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
@@ -23,7 +24,7 @@
       <div class="modal-footer">
         <slot name="footer">
           <div class="buttons">
-            <button class="btn btn-primary" @click="onOkay">Okay</button>
+            <button class="btn" :class="`btn-${variant}`" @click="onOkay">{{ okText }}</button>
             <button class="btn btn-secondary" @click="hide">Cancel</button>
           </div>
         </slot>
@@ -47,6 +48,10 @@ export default {
     title: {
       type: String,
       default: 'Modal Title',
+    },
+    okText: {
+      type: String,
+      default: 'Okay',
     },
     closeOnEsc: {
       type: Boolean,
@@ -161,6 +166,7 @@ export default {
     }
     .modal-body {
       margin-bottom: 24px;
+      @include body-l;
     }
     .modal-footer {
       .buttons {
@@ -169,6 +175,14 @@ export default {
         .btn {
           width: calc(50% - 10px);
         }
+      }
+    }
+    &.danger {
+      .modal-header {
+        color: $red;
+      }
+      .modal-body {
+        color: $grey;
       }
     }
   }
