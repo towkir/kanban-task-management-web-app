@@ -16,8 +16,8 @@
             <DotsHrIcon />
           </button>
         </template>
-        <k-dropdown-item @click="edit">Edit</k-dropdown-item>
-        <k-dropdown-item>Delete</k-dropdown-item>
+        <k-dropdown-item @click="editColumn">Edit</k-dropdown-item>
+        <k-dropdown-item @click="deleteColumn">Delete</k-dropdown-item>
       </k-dropdown>
     </div>
     <div class="task-list">
@@ -63,8 +63,11 @@ export default {
     hideContextIcon() {
       this.menuOpen = false;
     },
-    edit() {
-      this.$emit('edit', this.column);
+    editColumn() {
+      this.$emit('editColumn', this.column);
+    },
+    deleteColumn() {
+      this.$emit('deleteColumn', this.column);
     },
   },
 };

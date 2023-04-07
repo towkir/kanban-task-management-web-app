@@ -5,10 +5,11 @@
         v-for="column in columns"
         :key="column.id"
         :column="column"
-        @edit="showModal"
+        @editColumn="showAddOrEditModal"
+        @deleteColumn="showDeleteModal"
       />
       <div class="column add">
-        <button class="btn btn-block" @click="showModal({})">
+        <button class="btn btn-block" @click="showAddOrEditModal({})">
           + New Column
         </button>
       </div>
@@ -17,25 +18,34 @@
       :board-id="boardId"
       :column-to-edit="columnToEdit"
     />
+    <delete-column
+      :column-to-delete="columnToDelete"
+    />
   </div>
 </template>
 
 <script>
 import Column from '@/components/columns/Column.vue';
 import AddOrEditColumn from '@/components/columns/AddOrEditColumn.vue';
+import DeleteColumn from '@/components/columns/DeleteColumn.vue';
 
 export default {
   name: 'Board',
-  components: { Column, AddOrEditColumn },
+  components: { Column, AddOrEditColumn, DeleteColumn },
   data() {
     return {
       columnToEdit: {},
+      columnToDelete: {},
     };
   },
   methods: {
-    showModal(columnData) {
+    showAddOrEditModal(columnData) {
       this.columnToEdit = columnData;
       this.$root.$emit('modal::show', 'add-or-edit-column');
+    },
+    showDeleteModal(columnData) {
+      this.columnToDelete = columnData;
+      this.$root.$emit('modal::show', 'delete-column');
     },
   },
   computed: {
