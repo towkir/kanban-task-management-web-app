@@ -630,6 +630,18 @@ export default new Vuex.Store({
         state.columns.splice(columnIndex, 1, data);
       }
     },
+    deleteColumn(state, data) {
+      const columnIndex = state.columns.findIndex((item) => item.id === data.id);
+      // delete column
+      state.columns.splice(columnIndex, 1);
+      const taskIdsToBeDeleted = state.tasks
+        .filter((item) => item.columnId === data.id)
+        .map((item) => item.id);
+      // delete tasks in the column
+      state.tasks = state.tasks.filter((item) => item.columnId !== data.id);
+      // delete subtasks in deleted tasks
+      state.subTasks = state.subTasks.filter((item) => !taskIdsToBeDeleted.includes(item.taskId));
+    },
   },
   actions: {},
   modules: {},
