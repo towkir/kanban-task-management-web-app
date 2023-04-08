@@ -15,7 +15,12 @@
         >
           <board-icon/>{{ board.name }}
         </button>
-        <button class="btn btn-lg btn-block cta"><board-icon/>+ Create New Board</button>
+        <button
+          class="btn btn-lg btn-block cta"
+          @click="addBoard"
+        >
+          <board-icon/>+ Create New Board
+        </button>
       </div>
       <theme-toggler/>
       <button class="btn btn-lg btn-block" @click="toggleSideBar">
@@ -51,6 +56,9 @@ export default {
     selectBoard(boardId) {
       const board = this.$store.state.boards.find((item) => item.id === boardId);
       this.$store.commit('selectBoard', board);
+    },
+    addBoard() {
+      this.$emit('addBoard', {});
     },
   },
   computed: {

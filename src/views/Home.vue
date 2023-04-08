@@ -1,8 +1,11 @@
 <template>
   <div class="home" :class="{ 'sidebar-open' : sideBarOpen }">
     <Header/>
-    <side-bar/>
+    <side-bar @addBoard="showAddOrEditBoardModal"/>
     <board/>
+    <add-or-edit-board
+      :board-to-edit="boardToEdit"
+    />
   </div>
 </template>
 
@@ -11,6 +14,7 @@
 import Header from '@/components/Header.vue';
 import SideBar from '@/components/SideBar.vue';
 import Board from '@/components/Board.vue';
+import AddOrEditBoard from '@/components/boards/AddOrEditBoard.vue';
 
 export default {
   name: 'Home',
@@ -18,6 +22,19 @@ export default {
     Header,
     SideBar,
     Board,
+    AddOrEditBoard,
+  },
+  data() {
+    return {
+      boardToEdit: {},
+      boardToDelete: {},
+    };
+  },
+  methods: {
+    showAddOrEditBoardModal(boardData) {
+      this.boardToEdit = boardData;
+      this.$root.$emit('modal::show', 'add-or-edit-board');
+    },
   },
 };
 </script>

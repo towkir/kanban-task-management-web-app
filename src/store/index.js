@@ -622,6 +622,15 @@ export default new Vuex.Store({
     selectBoard(state, data) {
       state.currentBoard = data;
     },
+    addOrUpdateBoard(state, data) {
+      const boardIndex = state.boards.findIndex((item) => item.id === data.id);
+      if (boardIndex < 0) {
+        state.boards.push(data);
+        state.currentBoard = data;
+      } else {
+        state.boards.splice(boardIndex, 1, data);
+      }
+    },
     addOrUpdateColumn(state, data) {
       const columnIndex = state.columns.findIndex((item) => item.id === data.id);
       if (columnIndex < 0) {

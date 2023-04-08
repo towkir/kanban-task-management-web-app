@@ -5,11 +5,11 @@
         v-for="column in columns"
         :key="column.id"
         :column="column"
-        @editColumn="showAddOrEditModal"
-        @deleteColumn="showDeleteModal"
+        @editColumn="showAddOrEditColumnModal"
+        @deleteColumn="showDeleteColumnModal"
       />
       <div class="column add">
-        <button class="btn btn-block" @click="showAddOrEditModal({})">
+        <button class="btn btn-block" @click="showAddOrEditColumnModal({})">
           + New Column
         </button>
       </div>
@@ -39,11 +39,11 @@ export default {
     };
   },
   methods: {
-    showAddOrEditModal(columnData) {
+    showAddOrEditColumnModal(columnData) {
       this.columnToEdit = columnData;
       this.$root.$emit('modal::show', 'add-or-edit-column');
     },
-    showDeleteModal(columnData) {
+    showDeleteColumnModal(columnData) {
       this.columnToDelete = columnData;
       this.$root.$emit('modal::show', 'delete-column');
     },
