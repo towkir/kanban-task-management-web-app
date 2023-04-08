@@ -3,7 +3,7 @@
     <div
       class="value"
       :class="{ empty : value === '', active : visible }"
-      @click="show"
+      @click="emitShow"
       v-html="selectedOptionText"
     />
     <div
@@ -76,6 +76,9 @@ export default {
     },
   },
   methods: {
+    emitShow() {
+      this.$root.$emit('k-select::show', this.id);
+    },
     show() {
       this.visible = true;
       setTimeout(() => {
@@ -102,7 +105,7 @@ export default {
     },
     handleBlur(event) {
       if (!(event && event.target && event.target.closest('.k-select'))) {
-        this.hide();
+        this.$root.$emit('k-select::hide', this.id);
       }
     },
     addEventListenerForCloseOnBlur() {
@@ -111,6 +114,21 @@ export default {
     removeEventListenerForCloseOnBlur() {
       document.removeEventListener('click', this.handleBlur);
     },
+  },
+  created() {
+    this.$root.$on('k-select::show', (id) => {
+      if (id === this.id) {
+        this.show();
+      } else {
+        // showing other select input should hide this one;
+        this.hide();
+      }
+    });
+    this.$root.$on('k-select::hide', (id) => {
+      if (id === this.id) {
+        this.hide();
+      }
+    });
   },
 };
 </script>
