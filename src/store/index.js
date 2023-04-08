@@ -626,10 +626,10 @@ export default new Vuex.Store({
       const boardIndex = state.boards.findIndex((item) => item.id === data.id);
       if (boardIndex < 0) {
         state.boards.push(data);
-        state.currentBoard = data;
       } else {
         state.boards.splice(boardIndex, 1, data);
       }
+      state.currentBoard = data;
     },
     addOrUpdateColumn(state, data) {
       const columnIndex = state.columns.findIndex((item) => item.id === data.id);
