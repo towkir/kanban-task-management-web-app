@@ -72,10 +72,10 @@ export default {
   },
   computed: {
     modalTitle() {
-      return `${this.columnToEdit.id ? 'Update' : 'Add New'} Column`;
+      return `${this.columnToEdit.id ? 'Edit' : 'Add New'} Column`;
     },
     modalButtonText() {
-      return this.columnToEdit.id ? 'Save Changes' : 'Add Column';
+      return this.columnToEdit.id ? 'Save' : 'Add';
     },
     isFormValid() {
       return this.column.name !== '' && this.column.color !== '';

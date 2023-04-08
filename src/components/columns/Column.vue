@@ -17,7 +17,7 @@
           </button>
         </template>
         <k-dropdown-item @click="editColumn">Edit</k-dropdown-item>
-        <k-dropdown-item @click="deleteColumn">Delete</k-dropdown-item>
+        <k-dropdown-item @click="deleteColumn" variant="danger">Delete</k-dropdown-item>
       </k-dropdown>
     </div>
     <div class="task-list">
