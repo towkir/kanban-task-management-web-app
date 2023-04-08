@@ -1,6 +1,7 @@
 <template>
   <div
     class="k-dropdown-item"
+    :class="variant"
     tabindex="0"
     ref="k-dropdown-item"
     @click="emitClick"
@@ -13,6 +14,12 @@
 <script>
 export default {
   name: 'KDropdownItem',
+  props: {
+    variant: {
+      type: String,
+      default: '',
+    },
+  },
   methods: {
     emitClick() {
       this.$emit('click');
@@ -41,6 +48,9 @@ export default {
   }
   &:focus {
     outline: none;
+  }
+  &.danger {
+    color: $red;
   }
 }
 </style>
