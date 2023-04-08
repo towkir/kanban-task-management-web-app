@@ -1,7 +1,12 @@
 <template>
   <div class="home" :class="{ 'sidebar-open' : sideBarOpen }">
-    <Header/>
-    <side-bar @addBoard="showAddOrEditBoardModal"/>
+    <Header
+      @editBoard="showAddOrEditBoardModal"
+      @deleteBoard="showDeleteBoardModal"
+    />
+    <side-bar
+      @addBoard="showAddOrEditBoardModal"
+    />
     <board/>
     <add-or-edit-board
       :board-to-edit="boardToEdit"
@@ -34,6 +39,9 @@ export default {
     showAddOrEditBoardModal(boardData) {
       this.boardToEdit = boardData;
       this.$root.$emit('modal::show', 'add-or-edit-board');
+    },
+    showDeleteBoardModal() {
+      this.$root.$emit('modal::show', 'delete-board');
     },
   },
 };

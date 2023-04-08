@@ -2,7 +2,7 @@
   <modal
     id="add-or-edit-board"
     :title="modalTitle"
-    ok-text="Add"
+    :ok-text="boardToEdit.id ? 'Save' : 'Add'"
     :can-press-ok="board.name !== ''"
     @ok="addOrUpdateBoard"
   >
@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     modalTitle() {
-      return `${this.boardToEdit.id ? 'Update' : 'Add New'} Board`;
+      return `${this.boardToEdit.id ? 'Edit' : 'Add New'} Board`;
     },
   },
   methods: {

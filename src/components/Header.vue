@@ -9,9 +9,18 @@
         <button class="btn btn-primary btn-lg">
           + Add New Task
         </button>
-        <button class="btn btn-minimal">
-          <dots-vr-icon/>
-        </button>
+        <k-dropdown
+          id="board-context-dropdown"
+          position="right"
+        >
+          <template #text>
+            <button class="btn btn-minimal btn-lg">
+              <dots-vr-icon/>
+            </button>
+          </template>
+          <k-dropdown-item @click="editBoard">Edit Board</k-dropdown-item>
+          <k-dropdown-item @click="deleteBoard" variant="danger">Delete Board</k-dropdown-item>
+        </k-dropdown>
       </div>
     </div>
   </div>
@@ -20,10 +29,22 @@
 <script>
 import Logo from '@/components/vectors/Logo.vue';
 import DotsVrIcon from '@/components/vectors/DotsVrIcon.vue';
+import KDropdown from '@/components/elements/KDropdown.vue';
+import KDropdownItem from '@/components/elements/KDropdownItem.vue';
 
 export default {
   name: 'Header',
-  components: { Logo, DotsVrIcon },
+  components: {
+    Logo, DotsVrIcon, KDropdown, KDropdownItem,
+  },
+  methods: {
+    editBoard() {
+      this.$emit('editBoard', this.currentBoard);
+    },
+    deleteBoard() {
+      this.$emit('deleteBoard', this.currentBoard);
+    },
+  },
 };
 </script>
 
@@ -58,6 +79,14 @@ export default {
     flex-grow: 1;
     h1 {
       @include heading-xl;
+    }
+    .action {
+      .btn-minimal {
+        padding: 14px 10px 14px 20px;
+        svg {
+          vertical-align: top;
+        }
+      }
     }
   }
 }
