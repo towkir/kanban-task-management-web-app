@@ -24,7 +24,14 @@
       <div class="modal-footer">
         <slot name="footer">
           <div class="buttons">
-            <button class="btn" :class="`btn-${variant}`" @click="onOkay">{{ okText }}</button>
+            <button
+              class="btn"
+              :class="`btn-${variant}`"
+              @click="onOkay"
+              :disabled="!canPressOk"
+            >
+              {{ okText }}
+            </button>
             <button class="btn btn-secondary" @click="hide">Cancel</button>
           </div>
         </slot>
@@ -52,6 +59,10 @@ export default {
     okText: {
       type: String,
       default: 'Okay',
+    },
+    canPressOk: {
+      type: Boolean,
+      default: true,
     },
     closeOnEsc: {
       type: Boolean,
