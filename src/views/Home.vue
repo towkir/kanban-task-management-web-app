@@ -18,7 +18,7 @@
 // @ is an alias to /src
 import Header from '@/components/Header.vue';
 import SideBar from '@/components/SideBar.vue';
-import Board from '@/components/Board.vue';
+import Board from '@/components/boards/Board.vue';
 import AddOrEditBoard from '@/components/boards/AddOrEditBoard.vue';
 
 export default {
