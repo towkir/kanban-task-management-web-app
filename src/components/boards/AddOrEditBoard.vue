@@ -57,7 +57,7 @@ export default {
         const allBoardIds = this.$store.state.boards.map((item) => item.id);
         this.board.id = this.findNextValidId(allBoardIds, 'board');
       }
-      this.$store.commit('addOrUpdateBoard', this.board);
+      this.$store.dispatch('addOrUpdateBoard', this.board);
       this.$root.$emit('modal::hide', 'add-or-edit-board');
     },
     prepareForm(boardData) {

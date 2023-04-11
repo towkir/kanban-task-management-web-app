@@ -622,14 +622,20 @@ export default new Vuex.Store({
     selectBoard(state, data) {
       state.currentBoard = data;
     },
-    addOrUpdateBoard(state, data) {
-      const boardIndex = state.boards.findIndex((item) => item.id === data.id);
-      if (boardIndex < 0) {
-        state.boards.push(data);
-      } else {
-        state.boards.splice(boardIndex, 1, data);
-      }
+    addBoard(state, data) {
+      state.boards.push(data);
+    },
+    updateBoard(state, data) {
+      state.boards.splice(data.index, 1, data.board);
+    },
+    updateBoards(state, data) {
+      state.boards = data;
+    },
+    updateCurrentBoard(state, data) {
       state.currentBoard = data;
+    },
+    deleteBoard(state, index) {
+      state.boards.splice(index, 1);
     },
     addOrUpdateColumn(state, data) {
       const columnIndex = state.columns.findIndex((item) => item.id === data.id);
@@ -652,6 +658,23 @@ export default new Vuex.Store({
       state.subTasks = state.subTasks.filter((item) => !taskIdsToBeDeleted.includes(item.taskId));
     },
   },
-  actions: {},
+  actions: {
+    addOrUpdateBoard(context, data) {
+      const boardIndex = context.state.boards.findIndex((item) => item.id === data.id);
+      if (boardIndex < 0) {
+        context.commit('addBoard', data);
+      } else {
+        context.commit('updateBoard', { index: boardIndex, board: data });
+      }
+      context.commit('updateCurrentBoard', data);
+    },
+    deleteBoard(context, data) {
+      const boardIndex = context.state.boards.findIndex((item) => item.id === data.id);
+      if (boardIndex >= 0) {
+        context.commit('deleteBoard', boardIndex);
+      }
+      context.commit('updateCurrentBoard', context.state.boards[0]);
+    },
+  },
   modules: {},
 });
