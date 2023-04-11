@@ -11,6 +11,9 @@
     <add-or-edit-board
       :board-to-edit="boardToEdit"
     />
+    <delete-board
+      :board-to-delete="boardToDelete"
+    />
   </div>
 </template>
 
@@ -20,6 +23,7 @@ import Header from '@/components/Header.vue';
 import SideBar from '@/components/SideBar.vue';
 import Board from '@/components/boards/Board.vue';
 import AddOrEditBoard from '@/components/boards/AddOrEditBoard.vue';
+import DeleteBoard from '@/components/boards/DeleteBoard.vue';
 
 export default {
   name: 'Home',
@@ -28,6 +32,7 @@ export default {
     SideBar,
     Board,
     AddOrEditBoard,
+    DeleteBoard,
   },
   data() {
     return {
@@ -40,7 +45,8 @@ export default {
       this.boardToEdit = boardData;
       this.$root.$emit('modal::show', 'add-or-edit-board');
     },
-    showDeleteBoardModal() {
+    showDeleteBoardModal(boardData) {
+      this.boardToDelete = boardData;
       this.$root.$emit('modal::show', 'delete-board');
     },
   },
