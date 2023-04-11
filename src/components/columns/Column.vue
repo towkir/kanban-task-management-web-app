@@ -34,7 +34,7 @@
 import KDropdown from '@/components/elements/KDropdown.vue';
 import KDropdownItem from '@/components/elements/KDropdownItem.vue';
 import DotsHrIcon from '@/components/vectors/DotsHrIcon.vue';
-import Task from '@/components/Task.vue';
+import Task from '@/components/tasks/Task.vue';
 
 export default {
   name: 'Column',
