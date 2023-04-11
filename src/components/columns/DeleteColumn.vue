@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     deleteColumn() {
-      this.$store.commit('deleteColumn', this.columnToDelete);
+      this.$store.dispatch('deleteColumn', this.columnToDelete);
       this.$root.$emit('modal::hide', 'delete-column');
     },
   },

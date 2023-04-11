@@ -637,25 +637,23 @@ export default new Vuex.Store({
     deleteBoard(state, index) {
       state.boards.splice(index, 1);
     },
-    addOrUpdateColumn(state, data) {
-      const columnIndex = state.columns.findIndex((item) => item.id === data.id);
-      if (columnIndex < 0) {
-        state.columns.push(data);
-      } else {
-        state.columns.splice(columnIndex, 1, data);
-      }
+    addColumn(state, data) {
+      state.columns.push(data);
     },
-    deleteColumn(state, data) {
-      const columnIndex = state.columns.findIndex((item) => item.id === data.id);
-      // delete column
-      state.columns.splice(columnIndex, 1);
-      const taskIdsToBeDeleted = state.tasks
-        .filter((item) => item.columnId === data.id)
-        .map((item) => item.id);
-      // delete tasks in the column
-      state.tasks = state.tasks.filter((item) => item.columnId !== data.id);
-      // delete subtasks in deleted tasks
-      state.subTasks = state.subTasks.filter((item) => !taskIdsToBeDeleted.includes(item.taskId));
+    updateColumn(state, data) {
+      state.columns.splice(data.index, 1, data.column);
+    },
+    updateColumns(state, data) {
+      state.columns = data;
+    },
+    deleteColumn(state, index) {
+      state.columns.splice(index, 1);
+    },
+    updateTasks(state, data) {
+      state.tasks = data;
+    },
+    updateSubTasks(state, data) {
+      state.subTasks = data;
     },
   },
   actions: {
@@ -674,6 +672,20 @@ export default new Vuex.Store({
         context.commit('deleteBoard', boardIndex);
       }
       context.commit('updateCurrentBoard', context.state.boards[0]);
+    },
+    addOrUpdateColumn(context, data) {
+      const columnIndex = context.state.columns.findIndex((item) => item.id === data.id);
+      if (columnIndex < 0) {
+        context.commit('addColumn', data);
+      } else {
+        context.commit('updateColumn', { index: columnIndex, column: data });
+      }
+    },
+    deleteColumn(context, data) {
+      const columnIndex = context.state.columns.findIndex((item) => item.id === data.id);
+      if (columnIndex >= 0) {
+        context.commit('deleteColumn', columnIndex);
+      }
     },
   },
   modules: {},

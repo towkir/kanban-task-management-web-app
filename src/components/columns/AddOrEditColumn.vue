@@ -90,7 +90,7 @@ export default {
         const allColumnIds = this.$store.state.columns.map((item) => item.id);
         this.column.id = this.findNextValidId(allColumnIds, 'column');
       }
-      this.$store.commit('addOrUpdateColumn', this.column);
+      this.$store.dispatch('addOrUpdateColumn', this.column);
       this.$root.$emit('modal::hide', 'add-or-edit-column');
     },
     prepareForm(columData) {
