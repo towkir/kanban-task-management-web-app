@@ -2,8 +2,8 @@
   <div class="task">
     <h5>{{ task.title }}</h5>
     <p>
-      {{completedSubTasks(subtasks)}} of {{ subtasks.length }} {{singularOrPlural(subtasks.length,
-        'subtask', 'subtasks')}}
+      {{numberOfCompletedSubTasks(numberOfSubtasks)}} of {{ numberOfSubtasks.length }}
+      {{singularOrPlural(numberOfSubtasks.length, 'subtask', 'subtasks')}}
     </p>
   </div>
 </template>
@@ -17,12 +17,12 @@ export default {
     },
   },
   computed: {
-    subtasks() {
+    numberOfSubtasks() {
       return this.$store.state.subTasks.filter((item) => item.taskId === this.task.id);
     },
   },
   methods: {
-    completedSubTasks(tasks) {
+    numberOfCompletedSubTasks(tasks) {
       return tasks.filter((item) => item.isCompleted).length;
     },
   },
