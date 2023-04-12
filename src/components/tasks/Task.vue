@@ -1,5 +1,5 @@
 <template>
-  <div class="task">
+  <div class="task" @click="viewTask">
     <h5>{{ task.title }}</h5>
     <p>
       {{numberOfCompletedSubTasks(numberOfSubtasks)}} of {{ numberOfSubtasks.length }}
@@ -22,6 +22,9 @@ export default {
     },
   },
   methods: {
+    viewTask() {
+      this.$root.$emit('task::view', this.task);
+    },
     numberOfCompletedSubTasks(tasks) {
       return tasks.filter((item) => item.isCompleted).length;
     },

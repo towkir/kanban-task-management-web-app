@@ -14,6 +14,7 @@
     <delete-board
       :board-to-delete="boardToDelete"
     />
+    <view-task :task="taskToView"/>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ import SideBar from '@/components/SideBar.vue';
 import Board from '@/components/boards/Board.vue';
 import AddOrEditBoard from '@/components/boards/AddOrEditBoard.vue';
 import DeleteBoard from '@/components/boards/DeleteBoard.vue';
+import ViewTask from '@/components/tasks/ViewTask.vue';
 
 export default {
   name: 'Home',
@@ -33,11 +35,13 @@ export default {
     Board,
     AddOrEditBoard,
     DeleteBoard,
+    ViewTask,
   },
   data() {
     return {
       boardToEdit: {},
       boardToDelete: {},
+      taskToView: {},
     };
   },
   methods: {
@@ -49,6 +53,12 @@ export default {
       this.boardToDelete = boardData;
       this.$root.$emit('modal::show', 'delete-board');
     },
+  },
+  created() {
+    this.$root.$on('task::view', (task) => {
+      this.taskToView = task;
+      this.$root.$emit('modal::show', 'view-task');
+    });
   },
 };
 </script>
