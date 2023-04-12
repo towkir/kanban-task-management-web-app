@@ -4,6 +4,8 @@
       type="checkbox"
       :id="subTask.id"
       :checked="subTask.isCompleted"
+      v-model="isCompleted"
+      @change="updateSubTask"
     >
     <span class="checkbox">
       <span class="checked"></span>
@@ -23,6 +25,20 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      isCompleted: false,
+    };
+  },
+  methods: {
+    updateSubTask() {
+      this.subTask.isCompleted = this.isCompleted;
+      this.$store.dispatch('addOrUpdateSubTask', this.subTask);
+    },
+  },
+  mounted() {
+    this.isCompleted = this.subTask.isCompleted;
   },
 };
 </script>
