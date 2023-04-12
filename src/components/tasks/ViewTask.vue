@@ -2,28 +2,31 @@
   <modal
     id="view-task"
     :title="task.title"
+    noFooter
   >
     <template #body>
       <p v-if="task.description">{{task.description}}</p>
       <h5 class="subtasks">
         Subtasks ({{numberOfCompletedSubTasks(subtasks)}} of {{subtasks.length}})
       </h5>
-      <sub-task
-        v-for="subtask in subtasks"
-        :key="subtask.id"
-        :sub-task="subtask" />
+      <div class="subtask-list">
+        <sub-task
+          v-for="subtask in subtasks"
+          :key="subtask.id"
+          :sub-task="subtask" />
+      </div>
       <div class="form-input">
-        <label for="task-status">Status</label>
+        <label for="task-status">Current Status</label>
         <k-select
           id="task-status"
           placeholder="Select a Status"
-          :value="columnOfThisTask.id"
+          :value="columnOfThisTask ? columnOfThisTask.id : ''"
           label-key="name"
           value-key="id"
           :options="columnsInCurrentBoard"
           :append="(item) =>
             `<span class='circle' style='background-color: ${item.color}'></span>`"
-          @change="updateColumn"
+          @change="moveTaskToColumn"
         />
       </div>
     </template>
@@ -59,8 +62,9 @@ export default {
     numberOfCompletedSubTasks(tasks) {
       return tasks.filter((item) => item.isCompleted).length;
     },
-    updateColumn() {
-      // update task status or column here;
+    moveTaskToColumn(columnId) {
+      this.task.columnId = columnId;
+      this.$store.dispatch('addOrUpdateTask', this.task);
     },
   },
 };
@@ -70,5 +74,9 @@ export default {
 h5.subtasks {
   @include body-m;
   margin: 24px 0 16px;
+}
+
+.subtask-list {
+  margin-bottom: 20px;
 }
 </style>
