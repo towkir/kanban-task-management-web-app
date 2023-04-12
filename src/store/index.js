@@ -649,6 +649,12 @@ export default new Vuex.Store({
     deleteColumn(state, index) {
       state.columns.splice(index, 1);
     },
+    addTask(state, data) {
+      state.tasks.push(data);
+    },
+    updateTask(state, data) {
+      state.tasks.splice(data.index, 1, data.task);
+    },
     updateTasks(state, data) {
       state.tasks = data;
     },
@@ -693,6 +699,14 @@ export default new Vuex.Store({
       const columnIndex = context.state.columns.findIndex((item) => item.id === data.id);
       if (columnIndex >= 0) {
         context.commit('deleteColumn', columnIndex);
+      }
+    },
+    addOrUpdateTask(context, data) {
+      const taskIndex = context.state.tasks.findIndex((item) => item.id === data.id);
+      if (taskIndex < 0) {
+        context.commit('addTask', data);
+      } else {
+        context.commit('updateTask', { index: taskIndex, task: data });
       }
     },
   },
