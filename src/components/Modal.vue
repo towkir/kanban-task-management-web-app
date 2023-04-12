@@ -21,7 +21,7 @@
           Modal Body
         </slot>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" v-if="!noFooter">
         <slot name="footer">
           <div class="buttons">
             <button
@@ -55,6 +55,9 @@ export default {
     title: {
       type: String,
       default: 'Modal Title',
+    },
+    noFooter: {
+      type: Boolean,
     },
     okText: {
       type: String,
