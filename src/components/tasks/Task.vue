@@ -41,6 +41,7 @@ export default {
   transition-property: background, color;
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
+  user-select: none;
   h5 {
     @include heading-m;
     color: $body-text-color;
