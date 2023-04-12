@@ -178,6 +178,7 @@ export default {
     .modal-body {
       margin-bottom: 24px;
       @include body-l;
+      color: $grey;
     }
     .modal-footer {
       .buttons {
@@ -191,9 +192,6 @@ export default {
     &.danger {
       .modal-header {
         color: $red;
-      }
-      .modal-body {
-        color: $grey;
       }
     }
   }
