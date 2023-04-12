@@ -658,6 +658,12 @@ export default new Vuex.Store({
     updateTasks(state, data) {
       state.tasks = data;
     },
+    addSubTask(state, data) {
+      state.subTasks.push(data);
+    },
+    updateSubTask(state, data) {
+      state.subTasks.splice(data.index, 1, data.subTask);
+    },
     updateSubTasks(state, data) {
       state.subTasks = data;
     },
@@ -707,6 +713,14 @@ export default new Vuex.Store({
         context.commit('addTask', data);
       } else {
         context.commit('updateTask', { index: taskIndex, task: data });
+      }
+    },
+    addOrUpdateSubTask(context, data) {
+      const subTaskIndex = context.state.subTasks.findIndex((item) => item.id === data.id);
+      if (subTaskIndex < 0) {
+        context.commit('addSubTask', data);
+      } else {
+        context.commit('updateSubTask', { index: subTaskIndex, subTask: data });
       }
     },
   },
