@@ -85,7 +85,7 @@ export default {
     this.$root.$on('k-dropdown::show', (id) => {
       if (id === this.id) {
         this.show();
-      } else {
+      } else if (this.visible) {
         // showing other dropdown should hide this one;
         this.hide();
       }
