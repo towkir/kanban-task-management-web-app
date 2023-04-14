@@ -42,6 +42,8 @@ export default {
       boardToEdit: {},
       boardToDelete: {},
       taskToView: {},
+      currentTask: {}, // add or edit
+      taskToDelete: {},
     };
   },
   methods: {
@@ -58,6 +60,11 @@ export default {
     this.$root.$on('task::view', (task) => {
       this.taskToView = task;
       this.$root.$emit('modal::show', 'view-task');
+    });
+    this.$root.$on('task::add-or-edit', (task) => {
+      this.currentTask = task;
+      this.$root.$emit('modal::hide', 'view-task');
+      this.$root.$emit('modal::show', 'add-or-edit-task');
     });
   },
 };

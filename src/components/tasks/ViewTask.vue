@@ -1,9 +1,25 @@
 <template>
   <modal
     id="view-task"
-    :title="task.title"
     noFooter
   >
+    <template #header>
+      {{task.title}}
+      <div class="menu">
+        <k-dropdown
+          id="task-menu"
+          position="right"
+        >
+          <template #text>
+            <button class="btn edit-task">
+              <DotsVrIcon />
+            </button>
+          </template>
+          <k-dropdown-item @click="editTask">Edit Task</k-dropdown-item>
+          <k-dropdown-item @click="deleteTask" variant="danger">Delete Task</k-dropdown-item>
+        </k-dropdown>
+      </div>
+    </template>
     <template #body>
       <p v-if="task.description">{{task.description}}</p>
       <h5 class="subtasks">
@@ -37,10 +53,15 @@
 import Modal from '@/components/Modal.vue';
 import SubTask from '@/components/tasks/SubTask.vue';
 import KSelect from '@/components/elements/KSelect.vue';
+import DotsVrIcon from '@/components/vectors/DotsVrIcon.vue';
+import KDropdown from '@/components/elements/KDropdown.vue';
+import KDropdownItem from '@/components/elements/KDropdownItem.vue';
 
 export default {
   name: 'ViewTask',
-  components: { Modal, SubTask, KSelect },
+  components: {
+    DotsVrIcon, KDropdown, KDropdownItem, Modal, SubTask, KSelect,
+  },
   props: {
     task: {
       type: Object,
@@ -66,11 +87,30 @@ export default {
       this.task.columnId = columnId;
       this.$store.dispatch('addOrUpdateTask', this.task);
     },
+    editTask(task) {
+      this.$root.$emit('task::add-or-edit', task);
+    },
+    deleteTask(task) {
+      this.$root.$emit('task::delete', task);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+::v-deep .modal-header {
+  position: relative;
+  padding-right: 20px;
+  .menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    .btn.edit-task {
+      padding: 0 0 0 15px;
+    }
+  }
+}
+
 h5.subtasks {
   @include body-m;
   margin: 24px 0 16px;
