@@ -163,10 +163,12 @@ export default {
         this.$store.dispatch('addOrUpdateSubTask', subTasksToAddOrUpdate[i]);
       }
       // deleting subtasks:
-      const subTasksToDelete = this.taskToAddOrEdit.subtasks
-        .filter((item) => !this.task.subtasks.map((subtask) => subtask.id).includes(item.id));
-      for (let i = 0; i < subTasksToDelete.length; i += 1) {
-        this.$store.dispatch('deleteSubTask', subTasksToDelete[i]);
+      if (this.taskToAddOrEdit.subtasks) {
+        const subTasksToDelete = this.taskToAddOrEdit.subtasks
+          .filter((item) => !this.task.subtasks.map((subtask) => subtask.id).includes(item.id));
+        for (let i = 0; i < subTasksToDelete.length; i += 1) {
+          this.$store.dispatch('deleteSubTask', subTasksToDelete[i]);
+        }
       }
       // adding or updating the task:
       if (!this.task.id) {
