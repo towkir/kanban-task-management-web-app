@@ -17,6 +17,7 @@
     <add-or-edit-column
       :board-id="boardId"
       :column-to-edit="columnToEdit"
+      @clearColumn="clearColumn"
     />
     <delete-column
       :column-to-delete="columnToDelete"
@@ -46,6 +47,9 @@ export default {
     showDeleteColumnModal(columnData) {
       this.columnToDelete = columnData;
       this.$root.$emit('modal::show', 'delete-column');
+    },
+    clearColumn() {
+      this.columnToEdit = {};
     },
   },
   computed: {

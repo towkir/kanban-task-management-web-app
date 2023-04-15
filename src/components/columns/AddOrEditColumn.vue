@@ -2,6 +2,7 @@
   <modal
     id="add-or-edit-column"
     :title="modalTitle"
+    @close="emitClear"
   >
     <template #body>
       <div class="form-input">
@@ -92,6 +93,10 @@ export default {
       }
       this.$store.dispatch('addOrUpdateColumn', this.column);
       this.$root.$emit('modal::hide', 'add-or-edit-column');
+      this.emitClear();
+    },
+    emitClear() {
+      this.$emit('clearColumn');
     },
     prepareForm(columData) {
       if (columData.id) {
