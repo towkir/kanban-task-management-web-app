@@ -152,6 +152,11 @@ export default {
       });
     },
     addOrUpdateTask() {
+      // adding or updating the task:
+      if (!this.task.id) {
+        const allTaskIds = this.$store.state.tasks.map((item) => item.id);
+        this.task.id = this.findNextValidId(allTaskIds, 'task');
+      }
       // adding or updating subtasks:
       const subTasksToAddOrUpdate = this.task.subtasks.filter((item) => item.title !== '');
       for (let i = 0; i < subTasksToAddOrUpdate.length; i += 1) {
@@ -169,11 +174,6 @@ export default {
         for (let i = 0; i < subTasksToDelete.length; i += 1) {
           this.$store.dispatch('deleteSubTask', subTasksToDelete[i]);
         }
-      }
-      // adding or updating the task:
-      if (!this.task.id) {
-        const allTaskIds = this.$store.state.tasks.map((item) => item.id);
-        this.task.id = this.findNextValidId(allTaskIds, 'task');
       }
       this.task.subtasks = []; // clearing since subtasks are separately added
       this.$store.dispatch('addOrUpdateTask', this.task);
