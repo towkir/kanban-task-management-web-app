@@ -667,6 +667,9 @@ export default new Vuex.Store({
     updateSubTasks(state, data) {
       state.subTasks = data;
     },
+    deleteSubTask(state, index) {
+      state.subTasks.splice(index, 1);
+    },
   },
   actions: {
     addOrUpdateBoard(context, data) {
@@ -721,6 +724,12 @@ export default new Vuex.Store({
         context.commit('addSubTask', data);
       } else {
         context.commit('updateSubTask', { index: subTaskIndex, subTask: data });
+      }
+    },
+    deleteSubTask(context, data) {
+      const subTaskIndex = context.state.subTasks.findIndex((item) => item.id === data.id);
+      if (subTaskIndex >= 0) {
+        context.commit('deleteSubTask', subTaskIndex);
       }
     },
   },
