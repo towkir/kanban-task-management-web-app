@@ -112,6 +112,7 @@ export default {
 }
 
 h5.subtasks {
+  color: $body-text-color;
   @include body-m;
   margin: 24px 0 16px;
 }

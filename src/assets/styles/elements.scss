@@ -80,14 +80,17 @@ html {
         transition: color 0.3s ease-in-out;
         margin-bottom: 10px;
       }
+
+      textarea,
       input[type="text"],
       input[type="number"] {
+        font-family: inherit;
+        @include body-l;
+        color: $body-text-color;
+        background-color: transparent;
         display: block;
         width: 100%;
         box-sizing: border-box;
-        background-color: transparent;
-        color: $body-text-color;
-        @include body-l;
         padding: 8px 16px;
         margin-bottom: 12px;
         border-radius: 4px;
@@ -99,6 +102,9 @@ html {
           border: 1px solid $purple;
           outline: none;
         }
+      }
+      textarea {
+        resize: none;
       }
     }
   }
