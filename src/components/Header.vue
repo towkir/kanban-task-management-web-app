@@ -6,7 +6,7 @@
     <div class="content">
       <h1>{{ currentBoard.name }}</h1>
       <div class="action">
-        <button class="btn btn-primary btn-lg">
+        <button class="btn btn-primary btn-lg" @click="addTask">
           + Add New Task
         </button>
         <k-dropdown
@@ -38,6 +38,9 @@ export default {
     Logo, DotsVrIcon, KDropdown, KDropdownItem,
   },
   methods: {
+    addTask() {
+      this.$root.$emit('task::add-or-edit', {});
+    },
     editBoard() {
       this.$emit('editBoard', this.currentBoard);
     },
