@@ -19,6 +19,7 @@
       :task-to-add-or-edit="taskToAddOrEdit"
       @clearTask="clearTask"
     />
+    <delete-task :task-to-delete="taskToDelete" />
   </div>
 </template>
 
@@ -31,6 +32,7 @@ import AddOrEditBoard from '@/components/boards/AddOrEditBoard.vue';
 import DeleteBoard from '@/components/boards/DeleteBoard.vue';
 import ViewTask from '@/components/tasks/ViewTask.vue';
 import AddOrEditTask from '@/components/tasks/AddOrEditTask.vue';
+import DeleteTask from '@/components/tasks/DeleteTask.vue';
 
 export default {
   name: 'Home',
@@ -42,13 +44,14 @@ export default {
     DeleteBoard,
     ViewTask,
     AddOrEditTask,
+    DeleteTask,
   },
   data() {
     return {
       boardToAddOrEdit: {},
       boardToDelete: {},
       taskToView: {},
-      taskToAddOrEdit: {}, // add or edit
+      taskToAddOrEdit: {},
       taskToDelete: {},
     };
   },
@@ -74,6 +77,11 @@ export default {
       this.taskToAddOrEdit = task;
       this.$root.$emit('modal::hide', 'view-task');
       this.$root.$emit('modal::show', 'add-or-edit-task');
+    });
+    this.$root.$on('task::delete', (task) => {
+      this.taskToDelete = task;
+      this.$root.$emit('modal::hide', 'view-task');
+      this.$root.$emit('modal::show', 'delete-task');
     });
   },
 };
