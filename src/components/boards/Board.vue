@@ -16,7 +16,7 @@
     </div>
     <add-or-edit-column
       :board-id="boardId"
-      :column-to-edit="columnToEdit"
+      :column-to-add-or-edit="columnToAddOrEdit"
       @clearColumn="clearColumn"
     />
     <delete-column
@@ -35,13 +35,13 @@ export default {
   components: { Column, AddOrEditColumn, DeleteColumn },
   data() {
     return {
-      columnToEdit: {},
+      columnToAddOrEdit: {},
       columnToDelete: {},
     };
   },
   methods: {
     showAddOrEditColumnModal(columnData) {
-      this.columnToEdit = columnData;
+      this.columnToAddOrEdit = columnData;
       this.$root.$emit('modal::show', 'add-or-edit-column');
     },
     showDeleteColumnModal(columnData) {
@@ -49,7 +49,7 @@ export default {
       this.$root.$emit('modal::show', 'delete-column');
     },
     clearColumn() {
-      this.columnToEdit = {};
+      this.columnToAddOrEdit = {};
     },
   },
   computed: {

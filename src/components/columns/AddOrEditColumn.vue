@@ -55,7 +55,7 @@ export default {
       type: String,
       required: true,
     },
-    columnToEdit: {
+    columnToAddOrEdit: {
       type: Object,
       default: () => {},
     },
@@ -73,10 +73,10 @@ export default {
   },
   computed: {
     modalTitle() {
-      return `${this.columnToEdit.id ? 'Edit' : 'Add New'} Column`;
+      return `${this.columnToAddOrEdit.id ? 'Edit' : 'Add New'} Column`;
     },
     modalButtonText() {
-      return this.columnToEdit.id ? 'Save' : 'Add';
+      return this.columnToAddOrEdit.id ? 'Save' : 'Add';
     },
     isFormValid() {
       return this.column.name !== '' && this.column.color !== '';
@@ -116,7 +116,7 @@ export default {
     },
   },
   watch: {
-    columnToEdit: {
+    columnToAddOrEdit: {
       deep: true,
       handler(val) {
         this.prepareForm(val);
