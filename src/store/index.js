@@ -658,6 +658,9 @@ export default new Vuex.Store({
     updateTasks(state, data) {
       state.tasks = data;
     },
+    deleteTask(state, index) {
+      state.tasks.splice(index, 1);
+    },
     addSubTask(state, data) {
       state.subTasks.push(data);
     },
@@ -716,6 +719,21 @@ export default new Vuex.Store({
         context.commit('addTask', data);
       } else {
         context.commit('updateTask', { index: taskIndex, task: data });
+      }
+    },
+    deleteTask(context, data) {
+      const taskId = data.id;
+      const taskIndex = context.state.tasks.findIndex((item) => item.id === data.id);
+      if (taskIndex >= 0) {
+        context.commit('deleteTask', taskIndex);
+      }
+      // deleting task deletes all subtasks in it:
+      const totalSubTasks = context.state.subTasks
+        .filter((subtask) => subtask.taskId === taskId).length;
+      for (let i = 0; i < totalSubTasks; i += 1) {
+        const subTaskIndex = context.state.subTasks
+          .findIndex((subtask) => subtask.taskId === taskId);
+        context.commit('deleteSubTask', subTaskIndex);
       }
     },
     addOrUpdateSubTask(context, data) {
