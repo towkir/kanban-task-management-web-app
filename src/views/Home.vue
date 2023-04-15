@@ -9,12 +9,12 @@
     />
     <board/>
     <add-or-edit-board
-      :board-to-edit="boardToEdit"
+      :board-to-add-or-edit="boardToAddOrEdit"
     />
     <delete-board
       :board-to-delete="boardToDelete"
     />
-    <view-task :task="taskToView"/>
+    <view-task :task-to-view="taskToView"/>
   </div>
 </template>
 
@@ -39,16 +39,16 @@ export default {
   },
   data() {
     return {
-      boardToEdit: {},
+      boardToAddOrEdit: {},
       boardToDelete: {},
       taskToView: {},
-      currentTask: {}, // add or edit
+      taskToAddOrEdit: {}, // add or edit
       taskToDelete: {},
     };
   },
   methods: {
     showAddOrEditBoardModal(boardData) {
-      this.boardToEdit = boardData;
+      this.boardToAddOrEdit = boardData;
       this.$root.$emit('modal::show', 'add-or-edit-board');
     },
     showDeleteBoardModal(boardData) {
@@ -62,7 +62,7 @@ export default {
       this.$root.$emit('modal::show', 'view-task');
     });
     this.$root.$on('task::add-or-edit', (task) => {
-      this.currentTask = task;
+      this.taskToAddOrEdit = task;
       this.$root.$emit('modal::hide', 'view-task');
       this.$root.$emit('modal::show', 'add-or-edit-task');
     });

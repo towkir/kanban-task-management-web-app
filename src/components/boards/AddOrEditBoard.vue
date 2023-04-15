@@ -2,7 +2,7 @@
   <modal
     id="add-or-edit-board"
     :title="modalTitle"
-    :ok-text="boardToEdit.id ? 'Save' : 'Add'"
+    :ok-text="boardToAddOrEdit.id ? 'Save' : 'Add'"
     :can-press-ok="board.name !== ''"
     @ok="addOrUpdateBoard"
   >
@@ -29,7 +29,7 @@ export default {
   name: 'AddOrEditBoard',
   components: { Modal },
   props: {
-    boardToEdit: {
+    boardToAddOrEdit: {
       type: Object,
       default: () => {},
     },
@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     modalTitle() {
-      return `${this.boardToEdit.id ? 'Edit' : 'Add New'} Board`;
+      return `${this.boardToAddOrEdit.id ? 'Edit' : 'Add New'} Board`;
     },
   },
   methods: {
@@ -76,7 +76,7 @@ export default {
     },
   },
   watch: {
-    boardToEdit: {
+    boardToAddOrEdit: {
       deep: true,
       handler(val) {
         this.prepareForm(val);

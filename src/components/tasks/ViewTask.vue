@@ -4,7 +4,7 @@
     noFooter
   >
     <template #header>
-      {{task.title}}
+      {{taskToView.title}}
       <div class="menu">
         <k-dropdown
           id="task-menu"
@@ -21,7 +21,7 @@
       </div>
     </template>
     <template #body>
-      <p v-if="task.description">{{task.description}}</p>
+      <p v-if="taskToView.description">{{taskToView.description}}</p>
       <h5 class="subtasks">
         Subtasks ({{numberOfCompletedSubTasks(subtasks)}} of {{subtasks.length}})
       </h5>
@@ -63,17 +63,17 @@ export default {
     DotsVrIcon, KDropdown, KDropdownItem, Modal, SubTask, KSelect,
   },
   props: {
-    task: {
+    taskToView: {
       type: Object,
       required: true,
     },
   },
   computed: {
     subtasks() {
-      return this.$store.state.subTasks.filter((item) => item.taskId === this.task.id);
+      return this.$store.state.subTasks.filter((item) => item.taskId === this.taskToView.id);
     },
     columnOfThisTask() {
-      return this.$store.state.columns.find((item) => item.id === this.task.columnId);
+      return this.$store.state.columns.find((item) => item.id === this.taskToView.columnId);
     },
     columnsInCurrentBoard() {
       return this.$store.state.columns.filter((item) => item.boardId === this.currentBoard.id);
@@ -84,14 +84,14 @@ export default {
       return tasks.filter((item) => item.isCompleted).length;
     },
     moveTaskToColumn(columnId) {
-      this.task.columnId = columnId;
-      this.$store.dispatch('addOrUpdateTask', this.task);
+      this.taskToView.columnId = columnId;
+      this.$store.dispatch('addOrUpdateTask', this.taskToView);
     },
-    editTask(task) {
-      this.$root.$emit('task::add-or-edit', task);
+    editTask() {
+      this.$root.$emit('task::add-or-edit', this.taskToView);
     },
-    deleteTask(task) {
-      this.$root.$emit('task::delete', task);
+    deleteTask() {
+      this.$root.$emit('task::delete', this.taskToView);
     },
   },
 };
