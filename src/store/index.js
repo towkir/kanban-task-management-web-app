@@ -628,9 +628,6 @@ export default new Vuex.Store({
     updateBoard(state, data) {
       state.boards.splice(data.index, 1, data.board);
     },
-    updateBoards(state, data) {
-      state.boards = data;
-    },
     updateCurrentBoard(state, data) {
       state.currentBoard = data;
     },
@@ -643,9 +640,6 @@ export default new Vuex.Store({
     updateColumn(state, data) {
       state.columns.splice(data.index, 1, data.column);
     },
-    updateColumns(state, data) {
-      state.columns = data;
-    },
     deleteColumn(state, index) {
       state.columns.splice(index, 1);
     },
@@ -655,9 +649,6 @@ export default new Vuex.Store({
     updateTask(state, data) {
       state.tasks.splice(data.index, 1, data.task);
     },
-    updateTasks(state, data) {
-      state.tasks = data;
-    },
     deleteTask(state, index) {
       state.tasks.splice(index, 1);
     },
@@ -666,9 +657,6 @@ export default new Vuex.Store({
     },
     updateSubTask(state, data) {
       state.subTasks.splice(data.index, 1, data.subTask);
-    },
-    updateSubTasks(state, data) {
-      state.subTasks = data;
     },
     deleteSubTask(state, index) {
       state.subTasks.splice(index, 1);
