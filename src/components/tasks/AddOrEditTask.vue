@@ -113,9 +113,6 @@ export default {
     isFormValid() {
       return this.task.title !== '' && this.task.columnId !== '';
     },
-    columnsInCurrentBoard() {
-      return this.$store.state.columns.filter((item) => item.boardId === this.currentBoard.id);
-    },
   },
   methods: {
     updateStatus(option) {

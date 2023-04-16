@@ -95,6 +95,9 @@ export default {
     currentBoard() {
       return this.$store.state.currentBoard;
     },
+    columnsInCurrentBoard() {
+      return this.$store.state.columns.filter((item) => item.boardId === this.currentBoard.id);
+    },
   },
   methods: {
     singularOrPlural(number, singularText, pluralText) {

@@ -75,9 +75,6 @@ export default {
     columnOfThisTask() {
       return this.$store.state.columns.find((item) => item.id === this.taskToView.columnId);
     },
-    columnsInCurrentBoard() {
-      return this.$store.state.columns.filter((item) => item.boardId === this.currentBoard.id);
-    },
   },
   methods: {
     numberOfCompletedSubTasks(tasks) {
