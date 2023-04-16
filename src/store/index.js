@@ -684,19 +684,17 @@ export default new Vuex.Store({
       }
       context.commit('updateCurrentBoard', data);
     },
-    deleteBoard(context, data) {
+    deleteBoard({ state, commit, dispatch }, data) {
       const boardId = data.id;
-      const boardIndex = context.state.boards.findIndex((item) => item.id === data.id);
+      const boardIndex = state.boards.findIndex((item) => item.id === boardId);
       if (boardIndex >= 0) {
-        context.commit('deleteBoard', boardIndex);
+        commit('deleteBoard', boardIndex);
       }
-      context.commit('updateCurrentBoard', context.state.boards[0]);
+      commit('updateCurrentBoard', state.boards[0]);
       // deleting board deletes all columns in it:
-      const totalColumns = context.state.columns
-        .filter((column) => column.boardId === boardId).length;
-      for (let i = 0; i < totalColumns; i += 1) {
-        const columnIndex = context.state.columns.findIndex((column) => column.boardId === boardId);
-        context.commit('deleteColumn', columnIndex);
+      const columnsToBeDeleted = state.columns.filter((column) => column.boardId === boardId);
+      for (let i = 0; i < columnsToBeDeleted.length; i += 1) {
+        dispatch('deleteColumn', columnsToBeDeleted[i]);
       }
     },
     addOrUpdateColumn(context, data) {
