@@ -721,19 +721,16 @@ export default new Vuex.Store({
         context.commit('updateTask', { index: taskIndex, task: data });
       }
     },
-    deleteTask(context, data) {
+    deleteTask({ state, commit, dispatch }, data) {
       const taskId = data.id;
-      const taskIndex = context.state.tasks.findIndex((item) => item.id === data.id);
+      const taskIndex = state.tasks.findIndex((item) => item.id === taskId);
       if (taskIndex >= 0) {
-        context.commit('deleteTask', taskIndex);
+        commit('deleteTask', taskIndex);
       }
       // deleting task deletes all subtasks in it:
-      const totalSubTasks = context.state.subTasks
-        .filter((subtask) => subtask.taskId === taskId).length;
-      for (let i = 0; i < totalSubTasks; i += 1) {
-        const subTaskIndex = context.state.subTasks
-          .findIndex((subtask) => subtask.taskId === taskId);
-        context.commit('deleteSubTask', subTaskIndex);
+      const subTasksToBeDeleted = state.subTasks.filter((subtask) => subtask.taskId === taskId);
+      for (let i = 0; i < subTasksToBeDeleted.length; i += 1) {
+        dispatch('deleteSubTask', subTasksToBeDeleted[i]);
       }
     },
     addOrUpdateSubTask(context, data) {
