@@ -6,7 +6,11 @@
     <div class="content">
       <h1>{{ currentBoard.name }}</h1>
       <div class="action">
-        <button class="btn btn-primary btn-lg" @click="addTask">
+        <button
+          :disabled="columnsInCurrentBoard.length === 0"
+          class="btn btn-primary btn-lg"
+          @click="addTask"
+        >
           + Add New Task
         </button>
         <k-dropdown
