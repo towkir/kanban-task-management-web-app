@@ -707,10 +707,16 @@ export default new Vuex.Store({
         context.commit('updateColumn', { index: columnIndex, column: data });
       }
     },
-    deleteColumn(context, data) {
-      const columnIndex = context.state.columns.findIndex((item) => item.id === data.id);
+    deleteColumn({ state, commit, dispatch }, data) {
+      const columnId = data.id;
+      const columnIndex = state.columns.findIndex((item) => item.id === columnId);
       if (columnIndex >= 0) {
-        context.commit('deleteColumn', columnIndex);
+        commit('deleteColumn', columnIndex);
+      }
+      // deleting column deletes all tasks in it:
+      const tasksToBeDeleted = state.tasks.filter((item) => item.columnId === columnId);
+      for (let i = 0; i < tasksToBeDeleted.length; i += 1) {
+        dispatch('deleteTask', tasksToBeDeleted[i]);
       }
     },
     addOrUpdateTask(context, data) {
