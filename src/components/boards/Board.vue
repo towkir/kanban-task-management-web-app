@@ -1,6 +1,9 @@
 <template>
   <div class="board" :class="{ 'sidebar-open' : sideBarOpen }">
-    <div class="columns">
+    <div
+      v-if="columns.length > 0"
+      class="columns"
+    >
       <column
         v-for="column in columns"
         :key="column.id"
@@ -9,9 +12,28 @@
         @deleteColumn="showDeleteColumnModal"
       />
       <div class="column add">
-        <button class="btn btn-block" @click="showAddOrEditColumnModal({})">
+        <button
+          class="btn btn-block"
+          @click="showAddOrEditColumnModal({})"
+        >
           + New Column
         </button>
+      </div>
+    </div>
+    <div
+      v-else
+      class="empty-board"
+    >
+      <div>
+        <p class="message">This board is empty. Create a new column to get started.</p>
+        <p>
+          <button
+            class="btn btn-primary btn-lg"
+            @click="showAddOrEditColumnModal({})"
+          >
+            +Add New Column
+          </button>
+        </p>
       </div>
     </div>
     <add-or-edit-column
@@ -76,6 +98,18 @@ export default {
   scrollbar-width: none;
   &.sidebar-open {
     margin-left: 300px;
+  }
+  .empty-board {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    .message {
+      @include heading-l;
+      color: $grey;
+      margin-bottom: 2rem;
+    }
   }
   .columns {
     height: 100%;
