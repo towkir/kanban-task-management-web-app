@@ -111,6 +111,7 @@ export default {
     overflow: hidden;
     top: calc(100% + 10px);
     box-shadow: 0 4px 6px rgba(54, 78, 126, 0.101545);
+    z-index: 4;
     &.left {
       left: 0;
       right: unset;
