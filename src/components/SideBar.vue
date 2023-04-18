@@ -157,4 +157,20 @@ export default {
     z-index: 5;
   }
 }
+
+@include tab-lg {
+  .sidebar-container {
+    .sidebar {
+      width: 260px;
+    }
+  }
+}
+
+@include tab-sm {
+  .sidebar-container {
+    .btn-eye {
+      display: none;
+    }
+  }
+}
 </style>

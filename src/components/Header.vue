@@ -113,4 +113,43 @@ export default {
     }
   }
 }
+
+@include tab-sm {
+  .header {
+    border-bottom-color: transparent;
+    .logo {
+      width: auto;
+      border-right-color: transparent;
+      padding: 16px 0 16px 16px;
+    }
+    .content {
+      padding: 16px;
+      h1 {
+        @include heading-l;
+        svg {
+          display: inline-block;
+        }
+        &.drawer-open {
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+      }
+      .action {
+        .btn-primary {
+          padding: 6px 18px;
+          span {
+            display: none;
+          }
+          svg {
+            display: inline-block;
+          }
+        }
+        .btn-minimal {
+          padding: 6px 10px 6px 16px;
+        }
+      }
+    }
+  }
+}
 </style>

@@ -95,4 +95,14 @@ export default {
     }
   }
 }
+
+@include tab-lg {
+  .home {
+    &.sidebar-open {
+      .logo {
+        width: 260px;
+      }
+    }
+  }
+}
 </style>

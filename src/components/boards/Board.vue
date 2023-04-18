@@ -133,4 +133,12 @@ export default {
     }
   }
 }
+
+@include tab-lg {
+  .board {
+    &.sidebar-open {
+      margin-left: 260px;
+    }
+  }
+}
 </style>
