@@ -166,13 +166,15 @@ export default {
   }
   .modal {
     background-color: $header-bg-color;
-    width: 480px;
+    width: calc(100% - 40px);
+    max-width: 480px;
     position: absolute;
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
     padding: 30px;
     border-radius: 6px;
+    box-sizing: border-box;
     .modal-header {
       @include heading-l;
       margin-bottom: 24px;
@@ -196,6 +198,14 @@ export default {
       .modal-header {
         color: $red;
       }
+    }
+  }
+}
+
+@include phone-lg {
+  .modal-backdrop {
+    .modal {
+      padding: 20px;
     }
   }
 }
