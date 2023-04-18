@@ -141,4 +141,12 @@ export default {
     }
   }
 }
+
+@include tab-sm {
+  .board {
+    &.sidebar-open {
+      margin-left: 0;
+    }
+  }
+}
 </style>

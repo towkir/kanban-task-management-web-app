@@ -19,6 +19,8 @@ export default new Vuex.Store({
   ],
   state: {
     sideBarOpen: true,
+    sideBarHiding: false,
+    sideBarShowing: true,
     theme: 'light',
     currentBoard: {
       id: 'board-1',
@@ -613,8 +615,14 @@ export default new Vuex.Store({
     ],
   },
   mutations: {
-    toggleSidebar(state, data) {
+    updateSidebarOpenStatus(state, data) {
       state.sideBarOpen = data;
+    },
+    updateSideBarHidingStatus(state, data) {
+      state.sideBarHiding = data;
+    },
+    updateSideBarShowingStatus(state, data) {
+      state.sideBarShowing = data;
     },
     toggleTheme(state) {
       state.theme = state.theme === 'light' ? 'dark' : 'light';
@@ -663,6 +671,25 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    toggleSideBar(context, data = {}) {
+      // data = { mobileMode: false }
+      const { sideBarOpen } = context.state;
+      if (sideBarOpen) {
+        // close:
+        context.commit('updateSideBarHidingStatus', true);
+        context.commit('updateSideBarShowingStatus', false);
+        setTimeout(() => {
+          context.commit('updateSidebarOpenStatus', false);
+        }, data.mobileMode ? 300 : 0);
+      } else {
+        // open:
+        context.commit('updateSidebarOpenStatus', true);
+        setTimeout(() => {
+          context.commit('updateSideBarShowingStatus', true);
+          context.commit('updateSideBarHidingStatus', false);
+        });
+      }
+    },
     addOrUpdateBoard(context, data) {
       const boardIndex = context.state.boards.findIndex((item) => item.id === data.id);
       if (boardIndex < 0) {

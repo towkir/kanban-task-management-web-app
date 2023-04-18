@@ -1,6 +1,10 @@
 <template>
-  <div class="sidebar-container">
-    <div class="sidebar" :class="{ open : sideBarOpen}">
+  <div
+    class="sidebar-container"
+    :class="[sideBarOpen
+      ? 'visible' : 'hidden', { 'fade-in' : sideBarShowing, 'fade-out' : sideBarHiding }]"
+  >
+    <div class="sidebar" :class="{ open : sideBarOpen }">
       <div class="logo">
         <logo />
       </div>
@@ -23,7 +27,7 @@
         </button>
       </div>
       <theme-toggler/>
-      <button class="btn btn-lg btn-block" @click="toggleSideBar">
+      <button class="btn btn-lg btn-block hide-sidebar" @click="toggleSideBar">
         <hide-icon/>Hide Sidebar
       </button>
     </div>
@@ -51,7 +55,7 @@ export default {
   },
   methods: {
     toggleSideBar() {
-      this.$store.commit('toggleSidebar', !this.sideBarOpen);
+      this.$store.dispatch('toggleSideBar');
     },
     selectBoard(boardId) {
       const board = this.$store.state.boards.find((item) => item.id === boardId);
@@ -81,7 +85,7 @@ export default {
     left: -300px;
     top: 0;
     z-index: 10;
-    transition-property: background, left, border;
+    transition-property: background, left, border, width;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
     box-sizing: border-box;
@@ -168,9 +172,49 @@ export default {
 
 @include tab-sm {
   .sidebar-container {
-    .btn-eye {
+    &.hidden {
       display: none;
     }
+    &.visible {
+      display: block;
+    }
+    &.fade-out {
+      opacity: 0;
+    }
+    &.fade-in {
+      opacity: 1;
+    }
+    width: 100%;
+    height: 100%;
+    background-color: transparentize($black, 0.5);
+    position: fixed;
+    z-index: 5;
+    transition: opacity 0.3s ease-in-out;
+    .sidebar {
+      &.open {
+        left: 50px;
+      }
+      top: 80px;
+      height: auto;
+      padding-right: 0;
+      border-right: 0;
+      border-radius: 8px;
+      div.logo, .btn.hide-sidebar {
+        display: none;
+      }
+      div.board-list {
+        padding-right: 24px;
+        label {
+          padding: 14px 24px 18px;
+        }
+      }
+      .theme-toggler {
+        margin: 16px;
+      }
+    }
+  }
+  .btn-eye {
+    display: none;
   }
 }
 </style>

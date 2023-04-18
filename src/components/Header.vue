@@ -4,8 +4,8 @@
       <logo />
     </div>
     <div class="content">
-      <h1>
-        {{ currentBoard.name }} <down-arrow-icon />
+      <h1 :class="{ 'drawer-open' : sideBarOpen }" @click="toggleSideBar">
+        {{ currentBoard.name }} <down-arrow-icon ref="board-selector-dropdown"/>
       </h1>
       <div class="action">
         <button
@@ -55,6 +55,13 @@ export default {
     },
     deleteBoard() {
       this.$emit('deleteBoard', this.currentBoard);
+    },
+    isVisible(e) {
+      return !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
+    },
+    toggleSideBar() {
+      const mobileMode = this.isVisible(this.$refs['board-selector-dropdown'].$el);
+      this.$store.dispatch('toggleSideBar', { mobileMode });
     },
   },
 };

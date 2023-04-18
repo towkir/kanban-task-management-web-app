@@ -105,4 +105,14 @@ export default {
     }
   }
 }
+
+@include tab-sm {
+  .home {
+    &.sidebar-open {
+      .logo {
+        width: auto;
+      }
+    }
+  }
+}
 </style>

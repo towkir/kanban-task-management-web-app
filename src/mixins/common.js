@@ -89,6 +89,12 @@ export default {
     sideBarOpen() {
       return this.$store.state.sideBarOpen;
     },
+    sideBarHiding() {
+      return this.$store.state.sideBarHiding;
+    },
+    sideBarShowing() {
+      return this.$store.state.sideBarShowing;
+    },
     currentTheme() {
       return this.$store.state.theme;
     },
