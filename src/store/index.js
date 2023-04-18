@@ -671,23 +671,27 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    toggleSideBar(context, data = {}) {
+    openSideBar(context) {
+      context.commit('updateSidebarOpenStatus', true);
+      setTimeout(() => {
+        context.commit('updateSideBarShowingStatus', true);
+        context.commit('updateSideBarHidingStatus', false);
+      }, 0);
+    },
+    closeSideBar(context, data) {
+      context.commit('updateSideBarHidingStatus', true);
+      context.commit('updateSideBarShowingStatus', false);
+      setTimeout(() => {
+        context.commit('updateSidebarOpenStatus', false);
+      }, data.mobileMode ? 300 : 0);
+    },
+    toggleSideBar({ dispatch, state }, data = {}) {
       // data = { mobileMode: false }
-      const { sideBarOpen } = context.state;
+      const { sideBarOpen } = state;
       if (sideBarOpen) {
-        // close:
-        context.commit('updateSideBarHidingStatus', true);
-        context.commit('updateSideBarShowingStatus', false);
-        setTimeout(() => {
-          context.commit('updateSidebarOpenStatus', false);
-        }, data.mobileMode ? 300 : 0);
+        dispatch('closeSideBar', data);
       } else {
-        // open:
-        context.commit('updateSidebarOpenStatus', true);
-        setTimeout(() => {
-          context.commit('updateSideBarShowingStatus', true);
-          context.commit('updateSideBarHidingStatus', false);
-        });
+        dispatch('openSideBar');
       }
     },
     addOrUpdateBoard(context, data) {
