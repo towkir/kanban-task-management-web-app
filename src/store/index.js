@@ -18,9 +18,9 @@ export default new Vuex.Store({
     }),
   ],
   state: {
-    sideBarOpen: true,
-    sideBarHiding: false,
-    sideBarShowing: true,
+    sideBarOpen: false,
+    sideBarHiding: true,
+    sideBarShowing: false,
     theme: 'light',
     currentBoard: {
       id: 'board-1',
