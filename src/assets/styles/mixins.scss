@@ -41,3 +41,19 @@ $body-font-size: 14px;
 @mixin button {
   @include font(13px, 23px, 700);
 }
+
+@mixin tab-lg {
+  @media (max-width: 992px) { @content; }
+}
+
+@mixin tab-sm {
+  @media (max-width: 768px) { @content; }
+}
+
+@mixin phone-lg {
+  @media (max-width: 640px) { @content; }
+}
+
+@mixin phone-sm {
+  @media (max-width: 576px) { @content; }
+}
