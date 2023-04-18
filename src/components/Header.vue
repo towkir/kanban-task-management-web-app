@@ -4,7 +4,11 @@
       <logo />
     </div>
     <div class="content">
-      <h1 :class="{ 'drawer-open' : sideBarOpen }" @click="toggleSideBar">
+      <h1
+        class="board-name"
+        :class="{ 'drawer-open' : sideBarOpen }"
+        @click="toggleSideBar"
+      >
         {{ currentBoard.name }} <down-arrow-icon ref="board-selector-dropdown"/>
       </h1>
       <div class="action">
@@ -62,6 +66,22 @@ export default {
     toggleSideBar() {
       const mobileMode = this.isVisible(this.$refs['board-selector-dropdown'].$el);
       this.$store.dispatch('toggleSideBar', { mobileMode });
+      if (mobileMode && this.sideBarOpen) {
+        this.addEventListenerForCloseOnBlur();
+      } else {
+        this.removeEventListenerForCloseOnBlur();
+      }
+    },
+    handleBlur(event) {
+      if (!(event && event.target && (event.target.closest('.sidebar') || event.target.closest('.board-name')))) {
+        this.$store.dispatch('closeSideBar', { mobileMode: true });
+      }
+    },
+    addEventListenerForCloseOnBlur() {
+      document.addEventListener('click', this.handleBlur);
+    },
+    removeEventListenerForCloseOnBlur() {
+      document.removeEventListener('click', this.handleBlur);
     },
   },
 };
