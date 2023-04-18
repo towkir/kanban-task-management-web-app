@@ -4,14 +4,17 @@
       <logo />
     </div>
     <div class="content">
-      <h1>{{ currentBoard.name }}</h1>
+      <h1>
+        {{ currentBoard.name }} <down-arrow-icon />
+      </h1>
       <div class="action">
         <button
           :disabled="columnsInCurrentBoard.length === 0"
           class="btn btn-primary btn-lg"
           @click="addTask"
         >
-          + Add New Task
+          <span>+ Add New Task</span>
+          <plus-icon />
         </button>
         <k-dropdown
           id="board-context-dropdown"
@@ -35,11 +38,13 @@ import Logo from '@/components/vectors/Logo.vue';
 import DotsVrIcon from '@/components/vectors/DotsVrIcon.vue';
 import KDropdown from '@/components/elements/KDropdown.vue';
 import KDropdownItem from '@/components/elements/KDropdownItem.vue';
+import PlusIcon from '@/components/vectors/PlusIcon.vue';
+import DownArrowIcon from '@/components/vectors/DownArrowIcon.vue';
 
 export default {
   name: 'Header',
   components: {
-    Logo, DotsVrIcon, KDropdown, KDropdownItem,
+    Logo, DotsVrIcon, KDropdown, KDropdownItem, PlusIcon, DownArrowIcon,
   },
   methods: {
     addTask() {
@@ -86,8 +91,19 @@ export default {
     flex-grow: 1;
     h1 {
       @include heading-xl;
+      svg {
+        margin-left: 8px;
+        display: none;
+        transition: 0.3s ease-in-out;
+        vertical-align: middle;
+      }
     }
     .action {
+      .btn-primary {
+        svg {
+          display: none;
+        }
+      }
       .btn-minimal {
         padding: 14px 10px 14px 20px;
         svg {
