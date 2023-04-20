@@ -3,6 +3,7 @@
     class="sidebar-container"
     :class="[sideBarOpen
       ? 'visible' : 'hidden', { 'fade-in' : sideBarShowing, 'fade-out' : sideBarHiding }]"
+    @click="closeSideBar"
   >
     <div class="sidebar" :class="{ open : sideBarOpen }">
       <div class="logo">
@@ -56,6 +57,11 @@ export default {
   methods: {
     toggleSideBar() {
       this.$store.dispatch('toggleSideBar');
+    },
+    closeSideBar(event) {
+      if (event.target === event.currentTarget) {
+        this.$store.dispatch('closeSideBar', { mobileMode: true });
+      }
     },
     selectBoard(boardId) {
       const board = this.$store.state.boards.find((item) => item.id === boardId);

@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" @click="handleSideBar">
     <div class="logo">
       <logo />
     </div>
@@ -63,6 +63,13 @@ export default {
     isVisible(e) {
       return !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
     },
+    handleSideBar(event) {
+      const mobileMode = this.isVisible(this.$refs['board-selector-dropdown'].$el);
+      const clickedOnOuterHeader = !event.target.classList.contains('board-name') && !event.target.closest('.board-name');
+      if (mobileMode && this.sideBarOpen && clickedOnOuterHeader) {
+        this.$store.dispatch('closeSideBar', { mobileMode: true });
+      }
+    },
     toggleSideBar() {
       const mobileMode = this.isVisible(this.$refs['board-selector-dropdown'].$el);
       this.$store.dispatch('toggleSideBar', { mobileMode });
@@ -74,7 +81,12 @@ export default {
     },
     handleBlur(event) {
       if (!(event && event.target && (event.target.closest('.sidebar') || event.target.closest('.board-name')))) {
-        this.$store.dispatch('closeSideBar', { mobileMode: true });
+        const mobileMode = this.isVisible(this.$refs['board-selector-dropdown'].$el);
+        if (mobileMode) {
+          this.$store.dispatch('closeSideBar', { mobileMode: true });
+        } else {
+          this.removeEventListenerForCloseOnBlur();
+        }
       }
     },
     addEventListenerForCloseOnBlur() {
