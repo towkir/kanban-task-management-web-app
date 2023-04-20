@@ -31,6 +31,12 @@ html {
       transition-property: background, color;
       transition-duration: 0.3s;
       transition-timing-function: ease-in-out;
+      -webkit-tap-highlight-color: transparent;
+
+      &:focus-visible {
+        box-shadow: 0 0 1px 1px transparentize($purple, 0.9);
+        outline: none;
+      }
 
       &:disabled {
         opacity: 0.25;

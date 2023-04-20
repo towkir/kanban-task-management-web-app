@@ -106,11 +106,16 @@ export default {
 
     div.board-list {
       height: calc(100% - 240px);
+      overflow-y: auto;
+      padding-bottom: 16px;
       label {
         display: block;
         padding: 18px 24px;
         color: $grey;
         @include heading-s;
+        position: sticky;
+        top: 0;
+        background-color: $header-bg-color;
       }
     }
 
@@ -153,8 +158,7 @@ export default {
       }
     }
     .theme-toggler {
-      margin-left: 24px;
-      margin-bottom: 10px;
+      margin: 16px 0 10px 24px;
     }
   }
 
@@ -199,17 +203,20 @@ export default {
     .sidebar {
       &.open {
         left: 50px;
+        border-right-width: 0;
       }
       top: 80px;
       height: auto;
       padding-right: 0;
       border-right: 0;
       border-radius: 8px;
+      overflow: hidden;
       div.logo, .btn.hide-sidebar {
         display: none;
       }
       div.board-list {
         padding-right: 24px;
+        max-height: 350px;
         label {
           padding: 14px 24px 18px;
         }

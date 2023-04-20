@@ -108,6 +108,9 @@ export default {
       line-height: 1.2;
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
+      &:focus-visible {
+        opacity: 1;
+      }
       svg {
         margin-bottom: 2px;
       }
@@ -119,6 +122,16 @@ export default {
     overflow-y: auto;
     box-sizing: border-box;
     scrollbar-width: none;
+  }
+}
+
+@include tab-sm {
+  .column {
+    .title {
+      .btn.edit-column {
+        opacity: 1;
+      }
+    }
   }
 }
 </style>
