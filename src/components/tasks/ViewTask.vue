@@ -103,7 +103,8 @@ export default {
     top: 0;
     right: 0;
     .btn.edit-task {
-      padding: 0 0 0 15px;
+      padding: 4px 0 4px 15px;
+      line-height: 0;
     }
   }
 }

@@ -102,12 +102,12 @@ export default {
 
     div.logo {
       padding: 30px 20px;
+      box-sizing: border-box;
     }
 
     div.board-list {
       height: calc(100% - 240px);
       overflow-y: auto;
-      padding-bottom: 16px;
       label {
         display: block;
         padding: 18px 24px;
@@ -115,7 +115,8 @@ export default {
         @include heading-s;
         position: sticky;
         top: 0;
-        background-color: $header-bg-color;
+        background-color: inherit;
+        transition: background-color 0.3s ease-in-out;
       }
     }
 

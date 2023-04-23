@@ -68,6 +68,7 @@ export default {
         background-color: $purple;
         margin: 0 24px;
         cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
         span.toggler-button {
           position: absolute;
           width: 14px;
