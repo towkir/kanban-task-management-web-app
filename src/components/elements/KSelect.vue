@@ -3,15 +3,19 @@
     <div
       class="value"
       :class="{ empty : value === '', active : visible }"
+      @focus="emitShow"
       @click="emitShow"
       v-html="selectedOptionText"
+      tabindex="0"
     />
     <div
       class="options"
+      tabindex="0"
       :class="[visible ? 'visible' : 'hidden', { 'fade-in' : showing, 'fade-out' : hiding }]"
     >
       <span
         class="option"
+        :class="{ selected: isSelected(option) }"
         v-for="(option, index) in options"
         :key="option + index"
         @click="select(option)"
@@ -99,6 +103,10 @@ export default {
       this.$emit('change', this.valueKey ? val[this.valueKey] : val);
       this.hide();
     },
+    isSelected(option) {
+      const currentValue = this.valueKey ? option[this.valueKey] : option;
+      return this.value === currentValue;
+    },
     labelText(option) {
       const optionText = this.labelKey ? option[this.labelKey] : option;
       return this.append ? `${this.append(option)} ${optionText}` : optionText;
@@ -147,6 +155,9 @@ export default {
     margin-bottom: 12px;
     border-radius: 4px;
     border: 1px solid transparentize($grey, 0.75);
+    background-image: url("~@/assets/icons/icon-arrow-down.svg");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 20px) center;
     transition-property: color, border;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
@@ -169,6 +180,10 @@ export default {
     box-shadow: 0 4px 6px rgba(54, 78, 126, 0.101545);
     transition: opacity 0.3s ease-in-out;
     z-index: 5;
+    &:focus-visible {
+      box-shadow: 0 0 1px 1px transparentize($purple, 0.9);
+      outline: none;
+    }
     &.hidden {
       display: none;
     }
@@ -185,7 +200,13 @@ export default {
       display: block;
       padding: 8px 16px;
       cursor: pointer;
-      transition: background 0.3s ease-in-out;
+      transition: background-color 0.3s ease-in-out;
+      &.selected {
+        background-image: url("~@/assets/icons/icon-tick.svg");
+        background-repeat: no-repeat;
+        background-position: calc(100% - 20px) center;
+      }
+      &.selected,
       &:hover {
         background-color: $body-bg-color;
       }
