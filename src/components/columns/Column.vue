@@ -40,16 +40,10 @@
       <template v-if="commonDropZoneVisible">
         <div class="task-wrapper dragging-nearby" :class="{ bottom : dropZoneVisible }">
           <div class="dropzone bottom">
-            <!-- TODO: move to component -->
-            <template v-if="draggedTask.id">
-              <h5>{{ draggedTask.title }}</h5>
-              <p>
-                {{ numberOfCompletedSubTasks(numberOfSubtasks(draggedTaskLocal))}}
-                of {{ numberOfSubtasks(draggedTaskLocal).length }}
-                {{ singularOrPlural(numberOfSubtasks(draggedTaskLocal).length, 'subtask',
-                  'subtasks')}}
-              </p>
-            </template>
+            <drop-preview
+              v-if="draggedTaskLocal.id"
+              :task-to-preview="draggedTaskLocal"
+            />
           </div>
         </div>
       </template>
@@ -62,11 +56,12 @@ import KDropdown from '@/components/elements/KDropdown.vue';
 import KDropdownItem from '@/components/elements/KDropdownItem.vue';
 import DotsHrIcon from '@/components/vectors/DotsHrIcon.vue';
 import Task from '@/components/tasks/Task.vue';
+import DropPreview from '@/components/tasks/DropPreview.vue';
 
 export default {
   name: 'Column',
   components: {
-    KDropdown, KDropdownItem, DotsHrIcon, Task,
+    KDropdown, KDropdownItem, DotsHrIcon, Task, DropPreview,
   },
   props: {
     column: {

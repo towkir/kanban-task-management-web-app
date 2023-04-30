@@ -7,14 +7,10 @@
     @dragleave="hideDropZone"
   >
     <div class="dropzone top">
-      <template v-if="draggedTask.id">
-        <h5>{{ draggedTask.title }}</h5>
-        <p>
-          {{ numberOfCompletedSubTasks(numberOfSubtasks(draggedTaskLocal))}}
-          of {{ numberOfSubtasks(draggedTaskLocal).length }}
-          {{ singularOrPlural(numberOfSubtasks(draggedTaskLocal).length, 'subtask', 'subtasks')}}
-        </p>
-      </template>
+      <drop-preview
+        v-if="draggedTaskLocal.id"
+        :task-to-preview="draggedTaskLocal"
+      />
     </div>
     <div
       class="task"
@@ -32,21 +28,20 @@
       </p>
     </div>
     <div class="dropzone bottom">
-      <template v-if="draggedTask.id">
-        <h5>{{ draggedTask.title }}</h5>
-        <p>
-          {{ numberOfCompletedSubTasks(numberOfSubtasks(draggedTaskLocal))}}
-          of {{ numberOfSubtasks(draggedTaskLocal).length }}
-          {{ singularOrPlural(numberOfSubtasks(draggedTaskLocal).length, 'subtask', 'subtasks')}}
-        </p>
-      </template>
+      <drop-preview
+        v-if="draggedTaskLocal.id"
+        :task-to-preview="draggedTaskLocal"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import DropPreview from '@/components/tasks/DropPreview.vue';
+
 export default {
   name: 'Task',
+  components: { DropPreview },
   props: {
     task: {
       type: Object,
