@@ -8,6 +8,7 @@
         v-for="column in columns"
         :key="column.id"
         :column="column"
+        :dragged-task="draggedTask"
         @editColumn="showAddOrEditColumnModal"
         @deleteColumn="showDeleteColumnModal"
       />
@@ -59,6 +60,7 @@ export default {
     return {
       columnToAddOrEdit: {},
       columnToDelete: {},
+      draggedTask: {},
     };
   },
   methods: {
@@ -81,6 +83,14 @@ export default {
     columns() {
       return this.$store.state.columns.filter((item) => item.boardId === this.boardId);
     },
+  },
+  created() {
+    this.$root.$on('task::dragged', (task) => {
+      this.draggedTask = task;
+    });
+    this.$root.$on('task::dropped', () => {
+      this.draggedTask = {};
+    });
   },
 };
 </script>

@@ -33,12 +33,24 @@
         :key="`task-${task.id}`"
         :index="t"
         :task="task"
-        :drop-zone-visible="dropZoneVisible"
+        :drop-zone-visible-from-column="dropZoneVisible"
+        :dragged-task="draggedTaskLocal"
         @setOrder="setOrderForIncomingTask"
       />
-      <template v-if="tasks.length === 0">
+      <template v-if="commonDropZoneVisible">
         <div class="task-wrapper dragging-nearby" :class="{ bottom : dropZoneVisible }">
-          <div class="dropzone bottom"></div>
+          <div class="dropzone bottom">
+            <!-- TODO: move to component -->
+            <template v-if="draggedTask.id">
+              <h5>{{ draggedTask.title }}</h5>
+              <p>
+                {{ numberOfCompletedSubTasks(numberOfSubtasks(draggedTaskLocal))}}
+                of {{ numberOfSubtasks(draggedTaskLocal).length }}
+                {{ singularOrPlural(numberOfSubtasks(draggedTaskLocal).length, 'subtask',
+                  'subtasks')}}
+              </p>
+            </template>
+          </div>
         </div>
       </template>
     </div>
@@ -60,13 +72,17 @@ export default {
     column: {
       type: Object,
     },
+    draggedTask: {
+      type: Object,
+    },
   },
   data() {
     return {
       menuOpen: false,
       dragNodeLevel: 0,
       dropZoneVisible: false,
-      draggedTaskOrder: 0,
+      toBeDroppedTaskOrder: 0,
+      draggedTaskLocal: {},
     };
   },
   computed: {
@@ -74,6 +90,12 @@ export default {
       return this.$store.state.tasks
         .filter((item) => item.columnId === this.column.id)
         .sort((a, b) => a.order - b.order);
+    },
+    commonDropZoneVisible() {
+      const lastTaskInColumn = this.tasks[this.tasks.length - 1];
+      const draggedTaskIsTheLastTask = lastTaskInColumn && this.draggedTask.id
+        ? this.draggedTask.id === lastTaskInColumn.id : false;
+      return this.toBeDroppedTaskOrder === 0 && !draggedTaskIsTheLastTask;
     },
   },
   methods: {
@@ -90,7 +112,7 @@ export default {
       this.$emit('deleteColumn', this.column);
     },
     setOrderForIncomingTask(order) {
-      this.draggedTaskOrder = order;
+      this.toBeDroppedTaskOrder = order;
     },
     allowDrop(event) {
       event.preventDefault();
@@ -99,41 +121,66 @@ export default {
     },
     receiveTaskFromDrop(event) {
       event.preventDefault();
-      const order = this.draggedTaskOrder === 0 ? this.tasks.length + 1 : this.draggedTaskOrder;
-      const tasksInThisColumn = this.$store.state.tasks
+      const taskId = event.dataTransfer.getData('taskId');
+      const task = { ...this.$store.state.tasks.find((item) => item.id === taskId) };
+      let tasksInThisColumn = [...this.$store.state.tasks
         .filter((item) => item.columnId === this.column.id)
-        .sort((a, b) => a.order - b.order);
+        .sort((a, b) => a.order - b.order)];
+      const taskIsInTheSameColumn = tasksInThisColumn.map((item) => item.id).includes(taskId);
+      const order = this.toBeDroppedTaskOrder === 0
+        ? this.tasks.length + (!taskIsInTheSameColumn ? 1 : 0) : this.toBeDroppedTaskOrder;
+      task.columnId = this.column.id;
+      if (taskIsInTheSameColumn) {
+        const temporaryTaskListWithoutDraggedOne = tasksInThisColumn
+          .filter((item) => item.order !== this.draggedTask.order);
+        const taskMovingUp = this.draggedTaskLocal.order > this.toBeDroppedTaskOrder;
+        temporaryTaskListWithoutDraggedOne.splice(order - (1 + (taskMovingUp ? 0 : 1)),
+          0, task);
+        tasksInThisColumn = temporaryTaskListWithoutDraggedOne;
+      } else {
+        tasksInThisColumn.splice(order - 1, 0, task);
+      }
       for (let i = 0; i < tasksInThisColumn.length; i += 1) {
-        tasksInThisColumn[i].order = i + 1 + (i + 1 >= order ? 1 : 0);
+        tasksInThisColumn[i].order = i + 1;
         this.$store.dispatch('addOrUpdateTask', tasksInThisColumn[i]);
       }
-      const taskId = event.dataTransfer.getData('taskId');
-      const task = this.$store.state.tasks.find((item) => item.id === taskId);
-      task.columnId = this.column.id;
-      task.order = order;
-      this.$store.dispatch('addOrUpdateTask', task);
+      this.$root.$emit('task::dropped');
       this.resetDropZone();
     },
     showDropZone() {
       this.dragNodeLevel += 1;
       this.dropZoneVisible = true;
+      this.draggedTaskLocal = { ...this.draggedTask };
     },
     hideDropZone() {
       this.dragNodeLevel -= 1;
       if (this.dragNodeLevel === 0) {
         this.dropZoneVisible = false;
+        this.toBeDroppedTaskOrder = 0;
+        this.draggedTaskLocal = {};
       }
     },
     resetDropZone() {
       this.dragNodeLevel = 0;
       this.dropZoneVisible = false;
-      this.draggedTaskOrder = 0;
+      this.toBeDroppedTaskOrder = 0;
+      this.draggedTaskLocal = {};
+    },
+  },
+  watch: {
+    draggedTask: {
+      deep: true,
+      handler(val) {
+        if (!val.id) {
+          this.resetDropZone();
+        }
+      },
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .column {
   display: inline-block;
   width: 280px;
@@ -182,29 +229,7 @@ export default {
     overflow-y: auto;
     box-sizing: border-box;
     scrollbar-width: none;
-    .task-wrapper {
-      .dropzone {
-        box-sizing: border-box;
-        border-radius: 8px;
-        border-width: 0;
-        border-style: dashed;
-        border-color: $grey;
-        width: 100%;
-        height: 0;
-        transition-property: height, border-width, margin;
-        transition-duration: 0.3s;
-        transition-timing-function: ease-in-out;
-      }
-      &.dragging-nearby {
-        &.bottom {
-          .dropzone.bottom {
-            height: 40px;
-            border-width: 2px;
-            margin-bottom: 20px;
-          }
-        }
-      }
-    }
+    @import "~@/assets/styles/task-styles.scss";
   }
 }
 

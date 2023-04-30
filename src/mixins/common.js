@@ -115,5 +115,11 @@ export default {
       const nextIdNumber = arrayOfNumbers[arrayOfNumbers.length - 1] + 1;
       return `${prefix}-${nextIdNumber}`;
     },
+    numberOfSubtasks(task) {
+      return this.$store.state.subTasks.filter((item) => item.taskId === task.id);
+    },
+    numberOfCompletedSubTasks(tasks) {
+      return tasks.filter((item) => item.isCompleted).length;
+    },
   },
 };

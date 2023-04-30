@@ -1,0 +1,66 @@
+.task-wrapper {
+  user-select: none;
+  margin-bottom: 20px;
+  h5 {
+    @include heading-m;
+    color: $body-text-color;
+    margin-bottom: 5px;
+    transition: color 0.3s ease-in-out;
+  }
+  p {
+    @include body-m;
+    color: $grey;
+  }
+  .task {
+    background-color: $header-bg-color;
+    color: $body-text-color;
+    padding: 22px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(54, 78, 126, 0.101545);
+    cursor: pointer;
+    transition-property: background, color, margin;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+  }
+  .dropzone {
+    box-sizing: border-box;
+    border-radius: 8px;
+    border-width: 0;
+    border-style: dashed;
+    border-color: $grey;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+  }
+  &.dragged {
+    opacity: 0.3;
+  }
+  &.dragging-nearby {
+    &.top {
+      .dropzone.top {
+        padding: 22px 16px;
+        height: auto;
+        border-width: 2px;
+        margin-bottom: 20px;
+      }
+      .dropzone.bottom {
+        height: 0;
+        border-width: 0;
+      }
+    }
+    &.bottom {
+      .dropzone.top {
+        height: 0;
+        border-width: 0;
+      }
+      .dropzone.bottom {
+        padding: 22px 16px;
+        height: auto;
+        border-width: 2px;
+      }
+      .task + .dropzone.bottom {
+        margin-top: 20px;
+      }
+    }
+  }
+}
