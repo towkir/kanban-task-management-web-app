@@ -25,6 +25,10 @@ These are the mentionable features:
 #### About
 Github Repo can be found [here](https://github.com/towkir/kanban-task-management-web-app) (if you're not already viewing this from github).
 
+#### Built with
+
+- Vue 2
+- Sass
 
 ---
 
