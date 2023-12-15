@@ -1,5 +1,5 @@
 # Kanban Task Management Web App
-![Design preview for the Kanban Task Management Web App Project](./preview.png)
+![Design preview for the Kanban Task Management Web App Project](./preview.jpg)
 
 ### Description
 This Kanban Task Management project is built with vuejs and uses localstorage for storing your task data and preferences.
@@ -30,17 +30,23 @@ Github Repo can be found [here](https://github.com/towkir/kanban-task-management
 
 #### Project Setup Instructions
 
+Install dependencies:
 ```
-# Project setup
 npm install
+```
 
-# Compiles and hot-reloads for development
+Compiles and hot-reloads for development:
+```
 npm run serve
+```
 
-# Compiles and minifies for production
+Compiles and minifies for production:
+```
 npm run build
+```
 
-# Lints and fixes files
+Lints and fixes files:
+```
 npm run lint
 ```
 
