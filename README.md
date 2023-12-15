@@ -28,6 +28,7 @@ Github Repo can be found [here](https://github.com/towkir/kanban-task-management
 #### Built with
 
 - Vue 2
+- Vuex
 - Sass
 
 ---
@@ -39,17 +40,17 @@ Install dependencies:
 npm install
 ```
 
-Compiles and hot-reloads for development:
+Compile and hot-reload for development:
 ```
 npm run serve
 ```
 
-Compiles and minifies for production:
+Compile and minify for production:
 ```
 npm run build
 ```
 
-Lints and fixes files:
+Lint and fix files:
 ```
 npm run lint
 ```
